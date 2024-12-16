@@ -8,6 +8,33 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Main {
+
+    // Create new JFrame
+    JFrame window;
+
+    // Container
+    Container con;
+
+    // Title panel
+    JPanel titleNamePanel;
+
+    // JLabel for title
+    JLabel titleNameLable;
+
+    // Font
+    Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
+
+    // Create Label Objects
+    JLabel test_label;
+    JLabel test_text2;
+    // Create test panel for the text
+    JPanel test_text_panel;
+
+    // Create button
+    JPanel test_button_panel = new JPanel();
+    JButton test_button = new JButton("Click me");
+
+
     public static void main(String[] args) {
         System.out.println("Hello, World!");
 
