@@ -11,28 +11,22 @@ public class Main {
 
     // Create new JFrame
     JFrame window;
-
     // Container
     Container con;
-
     // Title panel
     JPanel titleNamePanel;
-
     // JLabel for title
     JLabel titleNameLable;
-
-    // Font
+    // Title Text Font
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
+    // Start button panel
+    JPanel startButtonPanel;
+    // Start button
+    JButton startButton;
+    // Normal Font
+    Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
 
-    // Create Label Objects
-    JLabel test_label;
-    JLabel test_text2;
-    // Create test panel for the text
-    JPanel test_text_panel;
 
-    // Create button
-    JPanel test_button_panel = new JPanel();
-    JButton test_button = new JButton("Click me");
 
 
     public static void main(String[] args) {
@@ -83,12 +77,35 @@ public class Main {
 
         // Change title font
         titleNameLable.setFont(titleFont);
-    
+
         // Add to panel
         titleNamePanel.add(titleNameLable);
 
+        // Get container width and height to use for title size
+        int titleButtonWPadding = 300;
+        int titleButtonWidth = con.getWidth() - (titleButtonWPadding * 2);
+
+        int titleButtonHeight = con.getHeight() / 6;
+
+        System.out.println(titleWidth);
+        System.out.println(titleHeight);
+
+        // Start button panel
+        startButtonPanel = new JPanel();
+        startButtonPanel.setBounds(300,400,titleButtonWidth, titleButtonHeight);
+        startButtonPanel.setBackground(Color.black);
+
+        // Start button
+        startButton = new JButton("Start");
+        startButton.setBackground(Color.black);
+        startButton.setForeground(Color.white);
+        startButton.setFont(normalFont);
+
+        // Add button to panel
+        startButtonPanel.add(startButton);
         // Add to container
         con.add(titleNamePanel);
+        con.add(startButtonPanel);
 
         
 
