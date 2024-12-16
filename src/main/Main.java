@@ -22,7 +22,7 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
 
-// EXAMPLE WRITE TEXT TO SCREEN USING LABEL //
+        // EXAMPLE WRITE TEXT TO SCREEN USING LABEL //
         // Create a test label
         JLabel test_label = new JLabel();
         JLabel test_text2 = new JLabel();
