@@ -37,51 +37,60 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Hello, World!");
+    
 
+        new Main();
+        
 
+    }
 
-        // Create new JFrame
-        JFrame window = new JFrame();
+    public Main() {
+
+        // Init JFrame
+        window = new JFrame();
+        
+        // Settings for window
         window.setTitle("Game Title!");
         window.setSize(800, 600);
         window.setLocationRelativeTo(null);
+        window.setLayout(null);
         window.setResizable(false);
+        window.getContentPane().setBackground(Color.black);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
 
-        // EXAMPLE WRITE TEXT TO SCREEN USING LABEL //
-        // Create a test label
-        JLabel test_label = new JLabel();
-        JLabel test_text2 = new JLabel();
+        // Init container
+        con = window.getContentPane();
 
-        // Set text for label
-        test_label.setText("HELLOOOOO :#");
-        test_text2.setText("This is our other text for our other label");
+        // Get container width and height to use for title size
+        int titleWPadding = 100;
+        int titleWidth = con.getWidth() - (titleWPadding * 2);
 
-        // Change font size
-        test_label.setFont(new Font("Calibri", Font.BOLD, 50));
-        test_text2.setFont(new Font("Calibri", Font.BOLD, 30));
+        int titleHeight = con.getHeight() / 4;
 
-        // Creatomg test panel for the text
-        JPanel test_text_panel = new JPanel();
-        // Add label to the panel
-        test_text_panel.add(test_label);
-        test_text_panel.add(test_text2);
+        System.out.println(titleWidth);
+        System.out.println(titleHeight);
 
-        // EXAMPLE BUTTON TO SCREEN USING PANEL //
-        // Create button
-        JPanel test_button_panel = new JPanel();
-        JButton test_button = new JButton("Click me");
+        // Title Screen
+        titleNamePanel = new JPanel();
+        titleNamePanel.setBounds(100,100, titleWidth, titleHeight);
+        titleNamePanel.setBackground(Color.black);
 
-        // Add button to button panel
-        test_button_panel.add(test_button);
+        // Add Title text to title panel
+        titleNameLable = new JLabel();
+        titleNameLable.setText("Rutrick");
+        titleNameLable.setForeground(Color.white);
 
-        // Set layout for the main window frame
-        window.setLayout(new BorderLayout());
+        // Change title font
+        titleNameLable.setFont(titleFont);
+    
+        // Add to panel
+        titleNamePanel.add(titleNameLable);
 
-        // Add button panel to frame
-        window.add(test_button_panel, BorderLayout.PAGE_START);
-        window.add(test_text_panel);
+        // Add to container
+        con.add(titleNamePanel);
+
+        
 
     }
 
