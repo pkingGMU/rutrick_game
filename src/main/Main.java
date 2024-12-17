@@ -55,6 +55,10 @@ public class Main {
         // Init container
         con = window.getContentPane();
 
+        String conDebug = String.format("Container Width: %d", con.getWidth());
+
+        System.out.println(conDebug);
+
         // Get container width and height to use for title size
         int titleWPadding = 100;
         int titleWidth = con.getWidth() - (titleWPadding * 2);
