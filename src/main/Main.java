@@ -1,8 +1,6 @@
 package main;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.*;
 
 public class Main {
@@ -52,26 +50,17 @@ public class Main {
 
         System.out.println(conDebug);
 
-        // Calculate title size and position dynamically
-        Map<String, Double> sizeAndPosition = getTitleSizeandPosition(con, 0.8, .25, .1, .1);
-
-        int titleWidth = (int)Math.round(sizeAndPosition.get("width"));
-        int titleHeight = (int)Math.round(sizeAndPosition.get("height"));
-        int titleStartingPosX = (int)Math.round(sizeAndPosition.get("startingPosX"));
-        int titleStartingPosY = (int)Math.round(sizeAndPosition.get("startingPosY"));
-
-        System.out.println(titleStartingPosX);
-        System.out.println(titleStartingPosY);
-
-        // Title Screen
+        // Create new Title Text Panel
+        CreateObjectSpace titleSpace = new CreateObjectSpace(con, 0.8, 0.25, 0.1, 0.1);
         titleNamePanel = new JPanel();
-        titleNamePanel.setBounds(titleStartingPosX,titleStartingPosY, titleWidth, titleHeight);
-        titleNamePanel.setBackground(Color.black);
+        titleSpace.applyBounds(titleNamePanel);
+        titleNamePanel.setBackground(Color.white);
+
 
         // Add Title text to title panel
         titleNameLable = new JLabel();
         titleNameLable.setText("Rutrick");
-        titleNameLable.setForeground(Color.white);
+        titleNameLable.setForeground(Color.black);
 
         // Change title font
         titleNameLable.setFont(titleFont);
@@ -79,22 +68,12 @@ public class Main {
         // Add to panel
         titleNamePanel.add(titleNameLable);
 
-        // Calculate button size and position dynamically
-        Map<String, Double> buttonSizeAndPosition = getTitleSizeandPosition(con, .2, .09, .4, .5);
-
-        int titleButtonWidth = (int)Math.round(buttonSizeAndPosition.get("width"));
-        int titleButtonHeight = (int)Math.round(buttonSizeAndPosition.get("height"));
-        int titleButtonStartingPosX = (int)Math.round(buttonSizeAndPosition.get("startingPosX"));
-        int titleButtonStartingPosY = (int)Math.round(buttonSizeAndPosition.get("startingPosY"));
-
-        System.out.println("Title Button");
-        System.out.println(titleButtonWidth);
-        System.out.println(titleButtonHeight);
-
-        // Start button panel
+        // Example: Creating and applying size and position for a JButton panel
+        CreateObjectSpace buttonSpace = new CreateObjectSpace(con, .2, .09, .4, .5);
         startButtonPanel = new JPanel();
-        startButtonPanel.setBounds(titleButtonStartingPosX,titleButtonStartingPosY,titleButtonWidth, titleButtonHeight);
+        buttonSpace.applyBounds(startButtonPanel);
         startButtonPanel.setBackground(Color.black);
+
 
         // Start button
         startButton = new JButton("Start");
@@ -115,25 +94,7 @@ public class Main {
 
     }
 
-    public Map<String, Double> getTitleSizeandPosition (Container con, double widthFactor, double heightFactor, double startingPosXFactor, double startingPosYFactor) {
-
-        
-        double width = con.getWidth() * widthFactor;
-        double height = con.getHeight() * heightFactor;
-        double startingPosX = con.getWidth() * startingPosXFactor;
-        double startingPosY = con.getHeight() * startingPosYFactor;
-
-        // Create and populate the map
-        Map<String, Double> sizeAndPositionMap = new HashMap<>();
-        
-        sizeAndPositionMap.put("width", width);
-        sizeAndPositionMap.put("height", height);
-        sizeAndPositionMap.put("startingPosX", startingPosX);
-        sizeAndPositionMap.put("startingPosY", startingPosY);
-
-        return sizeAndPositionMap;
-
-    }
+    
 
 
     
