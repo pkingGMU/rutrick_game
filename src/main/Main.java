@@ -6,7 +6,7 @@ import javax.swing.*;
 public class Main {
 
     // Create new JFrame
-    JFrame window;
+    WindowSettings settings;
     // Container
     Container con;
     // Title panel
@@ -36,21 +36,15 @@ public class Main {
 
     public Main() {
 
-        // Init JFrame
-        window = new JFrame();
+        // Init JFrame using Window Settings
+        settings = new WindowSettings("Game", 800, 600);
         
-        // Settings for window
-        window.setTitle("Game Title!");
-        window.setSize(800, 600);
-        window.setLocationRelativeTo(null);
-        window.setLayout(null);
-        window.setResizable(false);
-        window.getContentPane().setBackground(Color.black);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setVisible(true);
+        // Show Frame
+        settings.showWindow();
 
-        // Init container
-        con = window.getContentPane();
+        // Access the content pane
+        con = settings.getContentPane();
+
 
         String conDebug = String.format("Container Width: %d", con.getWidth());
 
