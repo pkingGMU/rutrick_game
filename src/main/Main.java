@@ -53,15 +53,15 @@ public class Main {
         System.out.println(conDebug);
 
         // Calculate title size and position dynamically
-        Map<String, Integer> sizeAndPosition = getTitleSizeandPosition(con, 8, 4, 8, 6);
+        Map<String, Double> sizeAndPosition = getTitleSizeandPosition(con, 0.8, .25, .1, .1);
 
-        int titleWidth = sizeAndPosition.get("width");
-        int titleHeight = sizeAndPosition.get("height");
-        int titleStartingPosX = sizeAndPosition.get("startingPosX");
-        int titleStartingPosY = sizeAndPosition.get("startingPosY");
+        int titleWidth = (int)Math.round(sizeAndPosition.get("width"));
+        int titleHeight = (int)Math.round(sizeAndPosition.get("height"));
+        int titleStartingPosX = (int)Math.round(sizeAndPosition.get("startingPosX"));
+        int titleStartingPosY = (int)Math.round(sizeAndPosition.get("startingPosY"));
 
-        System.out.println(titleWidth);
-        System.out.println(titleHeight);
+        System.out.println(titleStartingPosX);
+        System.out.println(titleStartingPosY);
 
         // Title Screen
         titleNamePanel = new JPanel();
@@ -79,18 +79,21 @@ public class Main {
         // Add to panel
         titleNamePanel.add(titleNameLable);
 
-        // Get container width and height to use for title size
-        int titleButtonWPadding = 300;
-        int titleButtonWidth = con.getWidth() - (titleButtonWPadding * 2);
+        // Calculate button size and position dynamically
+        Map<String, Double> buttonSizeAndPosition = getTitleSizeandPosition(con, .2, .09, .4, .5);
 
-        int titleButtonHeight = con.getHeight() / 6;
+        int titleButtonWidth = (int)Math.round(buttonSizeAndPosition.get("width"));
+        int titleButtonHeight = (int)Math.round(buttonSizeAndPosition.get("height"));
+        int titleButtonStartingPosX = (int)Math.round(buttonSizeAndPosition.get("startingPosX"));
+        int titleButtonStartingPosY = (int)Math.round(buttonSizeAndPosition.get("startingPosY"));
 
+        System.out.println("Title Button");
         System.out.println(titleButtonWidth);
         System.out.println(titleButtonHeight);
 
         // Start button panel
         startButtonPanel = new JPanel();
-        startButtonPanel.setBounds(300,400,titleButtonWidth, titleButtonHeight);
+        startButtonPanel.setBounds(titleButtonStartingPosX,titleButtonStartingPosY,titleButtonWidth, titleButtonHeight);
         startButtonPanel.setBackground(Color.black);
 
         // Start button
@@ -112,17 +115,17 @@ public class Main {
 
     }
 
-    public Map<String, Integer> getTitleSizeandPosition (Container con, int paddingFactor, int heightFactor, int startingPosXFactor, int startingPosYFactor) {
+    public Map<String, Double> getTitleSizeandPosition (Container con, double widthFactor, double heightFactor, double startingPosXFactor, double startingPosYFactor) {
 
-        int padding = con.getWidth() / paddingFactor;
-        int width = con.getWidth() - (padding * 2);
-        int height = con.getHeight() / heightFactor;
-        int startingPosX = con.getWidth() / startingPosXFactor;
-        int startingPosY = con.getHeight() / startingPosYFactor;
+        
+        double width = con.getWidth() * widthFactor;
+        double height = con.getHeight() * heightFactor;
+        double startingPosX = con.getWidth() * startingPosXFactor;
+        double startingPosY = con.getHeight() * startingPosYFactor;
 
         // Create and populate the map
-        Map<String, Integer> sizeAndPositionMap = new HashMap<>();
-        sizeAndPositionMap.put("padding", padding);
+        Map<String, Double> sizeAndPositionMap = new HashMap<>();
+        
         sizeAndPositionMap.put("width", width);
         sizeAndPositionMap.put("height", height);
         sizeAndPositionMap.put("startingPosX", startingPosX);
