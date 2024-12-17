@@ -2,9 +2,6 @@ package main;
 
 import java.awt.*;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Main {
 
@@ -90,8 +87,8 @@ public class Main {
 
         int titleButtonHeight = con.getHeight() / 6;
 
-        System.out.println(titleWidth);
-        System.out.println(titleHeight);
+        System.out.println(titleButtonWidth);
+        System.out.println(titleButtonHeight);
 
         // Start button panel
         startButtonPanel = new JPanel();
@@ -109,6 +106,9 @@ public class Main {
         // Add to container
         con.add(titleNamePanel);
         con.add(startButtonPanel);
+
+        con.revalidate();
+        con.repaint();
 
         
 
