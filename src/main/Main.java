@@ -1,6 +1,8 @@
 package main;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.*;
 
 public class Main {
@@ -50,18 +52,20 @@ public class Main {
 
         System.out.println(conDebug);
 
-        // Get container width and height to use for title size
-        int titleWPadding = 100;
-        int titleWidth = con.getWidth() - (titleWPadding * 2);
+        // Calculate title size and position dynamically
+        Map<String, Integer> sizeAndPosition = getTitleSizeandPosition(con, 8, 4, 8, 6);
 
-        int titleHeight = con.getHeight() / 4;
+        int titleWidth = sizeAndPosition.get("width");
+        int titleHeight = sizeAndPosition.get("height");
+        int titleStartingPosX = sizeAndPosition.get("startingPosX");
+        int titleStartingPosY = sizeAndPosition.get("startingPosY");
 
         System.out.println(titleWidth);
         System.out.println(titleHeight);
 
         // Title Screen
         titleNamePanel = new JPanel();
-        titleNamePanel.setBounds(100,100, titleWidth, titleHeight);
+        titleNamePanel.setBounds(titleStartingPosX,titleStartingPosY, titleWidth, titleHeight);
         titleNamePanel.setBackground(Color.black);
 
         // Add Title text to title panel
@@ -105,6 +109,26 @@ public class Main {
         con.repaint();
 
         
+
+    }
+
+    public Map<String, Integer> getTitleSizeandPosition (Container con, int paddingFactor, int heightFactor, int startingPosXFactor, int startingPosYFactor) {
+
+        int padding = con.getWidth() / paddingFactor;
+        int width = con.getWidth() - (padding * 2);
+        int height = con.getHeight() / heightFactor;
+        int startingPosX = con.getWidth() / startingPosXFactor;
+        int startingPosY = con.getHeight() / startingPosYFactor;
+
+        // Create and populate the map
+        Map<String, Integer> sizeAndPositionMap = new HashMap<>();
+        sizeAndPositionMap.put("padding", padding);
+        sizeAndPositionMap.put("width", width);
+        sizeAndPositionMap.put("height", height);
+        sizeAndPositionMap.put("startingPosX", startingPosX);
+        sizeAndPositionMap.put("startingPosY", startingPosY);
+
+        return sizeAndPositionMap;
 
     }
 
