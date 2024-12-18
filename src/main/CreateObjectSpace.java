@@ -2,30 +2,41 @@ package main;
 
 import java.awt.Container;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 public class CreateObjectSpace {
 
     
-    final private double finalWidth;
-    final private double finalHeight;
-    final private double startingPositionX;
-    final private double startingPositionY;
-    final private int containerWidth;
-    final private int containerHeight;
+    private double finalWidth;
+    private double finalHeight;
+    private double startingPositionX;
+    private double startingPositionY;
+    private int parentWidth;
+    private int parentHeight;
 
+    // Overload for differnt object (container)
     public CreateObjectSpace(Container con, double widthFactor,double heightFactor, double startingPositionXFactor, double startingPositionYFactor) {
 
-        containerWidth = con.getWidth();
-        containerHeight = con.getHeight();
+        parentWidth = con.getWidth();
+        parentHeight = con.getHeight();
 
-        this.finalWidth = containerWidth * widthFactor;
-        this.finalHeight = containerHeight * heightFactor;
-        this.startingPositionX = containerWidth * startingPositionXFactor;
-        this.startingPositionY = containerHeight * startingPositionYFactor;
+        calculateDimensions(widthFactor, heightFactor, startingPositionXFactor, startingPositionYFactor);
+    }
 
+    // Overload for differnt object (panel)
+    public CreateObjectSpace(JPanel panel, double widthFactor,double heightFactor, double startingPositionXFactor, double startingPositionYFactor) {
 
+        parentWidth = panel.getWidth();
+        parentHeight = panel.getHeight();
 
+        calculateDimensions(widthFactor, heightFactor, startingPositionXFactor, startingPositionYFactor);
+    }
 
+    private void calculateDimensions(double widthFactor,double heightFactor, double startingPositionXFactor, double startingPositionYFactor) {
+        this.finalWidth = parentWidth * widthFactor;
+        this.finalHeight = parentHeight * heightFactor;
+        this.startingPositionX = parentWidth * startingPositionXFactor;
+        this.startingPositionY = parentHeight * startingPositionYFactor;
     }
 
     // Set bounds on a JComponent

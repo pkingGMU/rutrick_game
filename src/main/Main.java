@@ -1,101 +1,42 @@
 package main;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Main {
 
-    // Create new JFrame
-    WindowSettings settings;
-    // Container
-    Container con;
-    // Title panel
-    JPanel titleNamePanel;
-    // JLabel for title
-    JLabel titleNameLable;
-    // Title Text Font
-    Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
-    // Start button panel
-    JPanel startButtonPanel;
-    // Start button
-    JButton startButton;
-    // Normal Font
-    Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
-
-
-
+    GameActionListener aHandler = new GameActionListener();
+    UI ui = new UI();
+    VisibilityManager vm = new VisibilityManager(ui);
 
     public static void main(String[] args) {
         System.out.println("Hello, World!");
     
-
         new Main();
+        
         
 
     }
 
     public Main() {
 
-        // Init JFrame using Window Settings
-        settings = new WindowSettings("Game", 800, 600);
-        
-        // Show Frame
-        settings.showWindow();
-
-        // Access the content pane
-        con = settings.getContentPane();
-
-
-        String conDebug = String.format("Container Width: %d", con.getWidth());
-
-        System.out.println(conDebug);
-
-        // Create new Title Text Panel
-        CreateObjectSpace titleSpace = new CreateObjectSpace(con, 0.8, 0.25, 0.1, 0.1);
-        titleNamePanel = new JPanel();
-        titleSpace.applyBounds(titleNamePanel);
-        titleNamePanel.setBackground(Color.white);
-
-
-        // Add Title text to title panel
-        titleNameLable = new JLabel();
-        titleNameLable.setText("Rutrick");
-        titleNameLable.setForeground(Color.black);
-
-        // Change title font
-        titleNameLable.setFont(titleFont);
-
-        // Add to panel
-        titleNamePanel.add(titleNameLable);
-
-        // Example: Creating and applying size and position for a JButton panel
-        CreateObjectSpace buttonSpace = new CreateObjectSpace(con, .2, .09, .4, .5);
-        startButtonPanel = new JPanel();
-        buttonSpace.applyBounds(startButtonPanel);
-        startButtonPanel.setBackground(Color.black);
-
-
-        // Start button
-        startButton = new JButton("Start");
-        startButton.setBackground(Color.black);
-        startButton.setForeground(Color.white);
-        startButton.setFont(normalFont);
-
-        // Add button to panel
-        startButtonPanel.add(startButton);
-        // Add to container
-        con.add(titleNamePanel);
-        con.add(startButtonPanel);
-
-        con.revalidate();
-        con.repaint();
-
-        
-
+        ui.createUI(aHandler);
+        vm.showTitleScreen();
     }
 
-    
+    public class GameActionListener implements ActionListener {
 
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            //Action Event Handling logic
 
-    
+            String choice = event.getActionCommand();
+
+            switch(choice){
+                case "start": vm.showGamePlayArea();
+            }
+
+        }
+    }
+
 }
