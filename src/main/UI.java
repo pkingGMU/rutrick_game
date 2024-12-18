@@ -3,6 +3,7 @@ package main;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,7 +28,7 @@ public class UI {
     // Normal Font
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
 
-    public void createUI() {
+    public void createUI(Main.GameActionListener aHandler) {
 
 
 
@@ -53,13 +54,20 @@ public class UI {
         CreateObjectSpace titleSpace = new CreateObjectSpace(con, 0.8, 0.25, 0.1, 0.1);
         titleNamePanel = new JPanel();
         titleSpace.applyBounds(titleNamePanel);
-        titleNamePanel.setBackground(Color.white);
+        titleNamePanel.setBackground(Color.black);
+
+        // Use GridBagLayout for centering
+        titleNamePanel.setLayout(new GridBagLayout());
 
 
         // Add Title text to title panel
         titleNameLable = new JLabel();
         titleNameLable.setText("Rutrick");
-        titleNameLable.setForeground(Color.black);
+        titleNameLable.setForeground(Color.white);
+
+        // Center contents
+        //titleNameLable.setHorizontalAlignment(JLabel.CENTER);
+        //titleNameLable.setVerticalAlignment(JLabel.CENTER);
 
         // Change title font
         titleNameLable.setFont(titleFont);
@@ -73,6 +81,9 @@ public class UI {
         buttonSpace.applyBounds(startButtonPanel);
         startButtonPanel.setBackground(Color.black);
 
+        // Use GridBagLayout for centering
+        startButtonPanel.setLayout(new GridBagLayout());
+
 
         // Start button
         startButton = new JButton("Start");
@@ -80,8 +91,19 @@ public class UI {
         startButton.setForeground(Color.white);
         startButton.setFont(normalFont);
 
+        // Button action handler
+        startButton.addActionListener(aHandler);
+        startButton.setActionCommand("start");
+
+        
         // Add button to panel
         startButtonPanel.add(startButton);
+
+        
+    
+
+
+
         // Add to container
         con.add(titleNamePanel);
         con.add(startButtonPanel);
@@ -89,7 +111,8 @@ public class UI {
         con.revalidate();
         con.repaint();
 
-        // New Section // ----------------------------------------------------------------
+        // Gamplay area // ----------------------------------------------------------------
+
 
 
 
