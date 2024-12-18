@@ -16,7 +16,7 @@ public class PlayerDeck {
 
     private void generateDeck() {
         String[] colorTypes = {"Red", "Green", "Blue"};
-        String[] numberTypes = {"One", "Two", "Three"};
+        String[] numberTypes = {"1", "2", "3"};
         String[] shapeTypes = {"Circle", "Square", "Triangle"};
         String[] fillTypes = {"Solid", "Striped", "Empty"};
 
