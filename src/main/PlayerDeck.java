@@ -1,73 +1,62 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PlayerDeck {
 
     
-    private ArrayList<String[]> allCards;
-
-    private String[] colorTypes;
-    private String[] numberTypes;
-    private String[] shapeTypes;
-    private String[] fillTypes;
+    final private ArrayList<Card> deck;
 
     public PlayerDeck() {
-
-        this.colorTypes = new String[]{"Red", "Green", "Blue"};
-        this.numberTypes = new String[]{"1", "2", "3"};
-        this.shapeTypes = new String[]{"X", "Y", "Z"};
-        this.fillTypes = new String[]{"No Fill", "Line Fill", "Fill"};
-
-        this.allCards = generateDeck();
+        this.deck = new ArrayList<>();
+        generateDeck();
 
     }
 
-    private ArrayList<String[]> generateDeck() {
-        ArrayList<String[]> deck = new ArrayList<>();
+    private void generateDeck() {
+        String[] colorTypes = {"Red", "Green", "Blue"};
+        String[] numberTypes = {"One", "Two", "Three"};
+        String[] shapeTypes = {"Circle", "Square", "Triangle"};
+        String[] fillTypes = {"Solid", "Striped", "Empty"};
 
         // Create all combinations of color, number, shape, and fill
         for (String color : colorTypes) {
             for (String number : numberTypes) {
                 for (String shape : shapeTypes) {
                     for (String fill : fillTypes) {
-                        // Each card is represented as an array of its properties
-                        deck.add(new String[]{color, number, shape, fill});
+                        // Each card is by the Card Class
+                        deck.add(new Card(color, number, shape, fill));
                     }
                 }
             }
         }
 
+        shuffleDeck();
+    }
+
+    public ArrayList<Card> getDeck() {
         return deck;
     }
 
-    // Getters
-    public int getTotalCardCount() {
-        return allCards.size();
+    public void shuffleDeck() {
+        Collections.shuffle(deck);
     }
 
-    public ArrayList<String[]> getDeck() {
-        return allCards;
-    }
-
-    // Methods
-     // Draw a card from the deck (removes the card)
-     public String[] drawCard() {
-        if (!allCards.isEmpty()) {
-            return allCards.remove(0); // Remove and return the first card
+    public Card drawCard() {
+        if (!deck.isEmpty()) {
+            return deck.remove(0);
         }
         return null; // No cards left
     }
 
-    // Add a card back to the deck
-    public void addCard(String[] card) {
-        allCards.add(card);
+    public int getDeckSize() {
+        return deck.size();
     }
 
-    // Print the deck (for debugging)
     public void printDeck() {
-        for (String[] card : allCards) {
-            System.out.println(String.join(", ", card));
+        for (Card card : deck) {
+            System.out.println(card);
         }
     }
 

@@ -11,7 +11,7 @@ public class Main {
     VisibilityManager vm = new VisibilityManager(ui);
     PlayerDeck deck;
     PlayerHand hand;
-    ArrayList<String[]> randomHand;
+    ArrayList<Card> randomHand;
 
     public static void main(String[] args) {
         System.out.println("Hello, World!");
