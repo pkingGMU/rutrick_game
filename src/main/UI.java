@@ -19,6 +19,9 @@ public class UI {
     JPanel titleNamePanel;
     // JLabel for title
     JLabel titleNameLable;
+
+    JPanel topMenuPanel;
+
     // Title Text Font
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
     // Start button panel
@@ -75,6 +78,9 @@ public class UI {
         // Add to panel
         titleNamePanel.add(titleNameLable);
 
+        // Initial is invisible until we set it as visible
+        titleNamePanel.setVisible(true);
+
         // Example: Creating and applying size and position for a JButton panel
         CreateObjectSpace buttonSpace = new CreateObjectSpace(con, .2, .09, .4, .5);
         startButtonPanel = new JPanel();
@@ -95,9 +101,12 @@ public class UI {
         startButton.addActionListener(aHandler);
         startButton.setActionCommand("start");
 
-        
+
         // Add button to panel
         startButtonPanel.add(startButton);
+
+        // Initial is invisible until we set it as visible
+        startButtonPanel.setVisible(true);
 
         
     
@@ -108,11 +117,22 @@ public class UI {
         con.add(titleNamePanel);
         con.add(startButtonPanel);
 
-        con.revalidate();
-        con.repaint();
+
 
         // Gamplay area // ----------------------------------------------------------------
 
+        // Dimensions for top menu
+        CreateObjectSpace topMenuSpace = new CreateObjectSpace(con, 1, .15, 0, 0);
+
+        // Panel for top menu
+        topMenuPanel = new JPanel();
+        topMenuSpace.applyBounds(topMenuPanel);
+        topMenuPanel.setLayout(null); // Used this to manually position items
+        topMenuPanel.setBackground(Color.gray);
+
+        topMenuPanel.setVisible(false);
+
+        con.add(topMenuPanel);
 
 
 
