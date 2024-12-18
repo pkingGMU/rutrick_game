@@ -22,7 +22,12 @@ public class UI {
     JLabel titleNameLable;
     // Top Menu
     JPanel topMenuPanel;
+
     JPanel topLeft;
+    JLabel scoreTotalLabel;
+    JLabel scoreTotalValueLabel;
+    Font scoreTotalFont = new Font("Times New Roman", Font.PLAIN,20);
+
     JPanel topMiddle;
     JLabel gameTitelLabel;
     // Game Title Text Font
@@ -31,7 +36,12 @@ public class UI {
     JPanel topRight;
     // Bottom Menu
     JPanel bottomMenuPanel;
+
     JPanel bottomLeft;
+    JLabel potTotalLabel;
+    JLabel potTotalValueLabel;
+    Font potTotalFont = new Font("Times New Roman", Font.PLAIN,20);
+
     JPanel bottomMiddle;
     JPanel bottomRight;
     //GameplayPanel
@@ -157,9 +167,27 @@ public class UI {
         CreateObjectSpace topLeftSpace = new CreateObjectSpace(topMenuPanel, .33, 1, 0, 0);
         topLeft = new JPanel();
         topLeftSpace.applyBounds(topLeft);
-        topLeft.setBackground(Color.green);
+        topLeft.setBackground(Color.BLACK);
         topLeft.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+        // Use GridBagLayout for centering
+        topLeft.setLayout(new GridBagLayout());
+
+        // Text that will display Total Score: 
+        scoreTotalLabel = new JLabel("Total Score:  ");
+        scoreTotalLabel.setBackground(Color.black);
+        scoreTotalLabel.setForeground(Color.white);
+        scoreTotalLabel.setFont(scoreTotalFont);
+
+        // Text that will display Total Score Value: 
+        scoreTotalValueLabel = new JLabel("0");
+        scoreTotalValueLabel.setBackground(Color.black);
+        scoreTotalValueLabel.setForeground(Color.white);
+        scoreTotalValueLabel.setFont(scoreTotalFont);
+
+        
+        topLeft.add(scoreTotalLabel);
+        topLeft.add(scoreTotalValueLabel);
         topMenuPanel.add(topLeft);
 
         // Top Middle Panel
@@ -219,9 +247,26 @@ public class UI {
         CreateObjectSpace bottomLeftSpace = new CreateObjectSpace(bottomMenuPanel, .33, 1, 0, 0);
         bottomLeft = new JPanel();
         bottomLeftSpace.applyBounds(bottomLeft);
-        bottomLeft.setBackground(Color.green);
+        bottomLeft.setBackground(Color.BLACK);
         bottomLeft.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+        // Use GridBagLayout for centering
+        bottomLeft.setLayout(new GridBagLayout());
+
+        // Text that will display Total Score: 
+        potTotalLabel = new JLabel("Potential Score:  ");
+        potTotalLabel.setBackground(Color.black);
+        potTotalLabel.setForeground(Color.white);
+        potTotalLabel.setFont(scoreTotalFont);
+
+        // Text that will display Total Score Value: 
+        potTotalValueLabel = new JLabel("0");
+        potTotalValueLabel.setBackground(Color.black);
+        potTotalValueLabel.setForeground(Color.white);
+        potTotalValueLabel.setFont(scoreTotalFont);
+
+        bottomLeft.add(potTotalLabel);
+        bottomLeft.add(potTotalValueLabel);
         bottomMenuPanel.add(bottomLeft);
 
         // Bottom Middle Panel
