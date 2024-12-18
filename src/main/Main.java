@@ -27,6 +27,13 @@ public class Main {
         @Override
         public void actionPerformed(ActionEvent event) {
             //Action Event Handling logic
+
+            String choice = event.getActionCommand();
+
+            switch(choice){
+                case "start": break;
+            }
+
         }
     }
 
