@@ -7,6 +7,7 @@ public class Main {
 
     GameActionListener aHandler = new GameActionListener();
     UI ui = new UI();
+    VisibilityManager vm = new VisibilityManager(ui);
 
     public static void main(String[] args) {
         System.out.println("Hello, World!");
@@ -20,6 +21,7 @@ public class Main {
     public Main() {
 
         ui.createUI(aHandler);
+        vm.showTitleScreen();
     }
 
     public class GameActionListener implements ActionListener {
@@ -31,7 +33,7 @@ public class Main {
             String choice = event.getActionCommand();
 
             switch(choice){
-                case "start": break;
+                case "start": vm.showGamePlayArea();
             }
 
         }
