@@ -24,6 +24,10 @@ public class UI {
     JPanel topMenuPanel;
     JPanel topLeft;
     JPanel topMiddle;
+    JLabel gameTitelLabel;
+    // Game Title Text Font
+    Font gameTitleFont = new Font("Times New Roman", Font.PLAIN,70);
+
     JPanel topRight;
     // Bottom Menu
     JPanel bottomMenuPanel;
@@ -163,9 +167,22 @@ public class UI {
         CreateObjectSpace topMiddleSpace = new CreateObjectSpace(topMenuPanel, .34, 1, .33, 0);
         topMiddle = new JPanel();
         topMiddleSpace.applyBounds(topMiddle);
-        topMiddle.setBackground(Color.red);
+        topMiddle.setBackground(Color.BLACK);
         topMiddle.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+        
+
+        // Use GridBagLayout for centering
+        topMiddle.setLayout(new GridBagLayout());
+
+        // Text that will display Rutrick
+        gameTitelLabel = new JLabel("Rutrick");
+        gameTitelLabel.setBackground(Color.black);
+        gameTitelLabel.setForeground(Color.white);
+        gameTitelLabel.setFont(gameTitleFont);
+
+
+        topMiddle.add(gameTitelLabel);
         topMenuPanel.add(topMiddle);
 
         // Top Right Panel
