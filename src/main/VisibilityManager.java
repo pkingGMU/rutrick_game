@@ -31,6 +31,7 @@ public class VisibilityManager {
         // Show the game screen
         ui.topMenuPanel.setVisible(true);
         ui.bottomMenuPanel.setVisible(true);
+        ui.gameplayPanel.setVisible(true);
 
         ui.con.revalidate();
         ui.con.repaint();

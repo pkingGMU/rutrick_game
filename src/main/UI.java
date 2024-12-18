@@ -30,6 +30,10 @@ public class UI {
     JPanel bottomLeft;
     JPanel bottomMiddle;
     JPanel bottomRight;
+    //GameplayPanel
+    JPanel gameplayPanel;
+    JPanel playingAreaPanel;
+    JPanel handViewPanel;
 
     // Title Text Font
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
@@ -128,7 +132,7 @@ public class UI {
 
 
 
-        // Gamplay area // ----------------------------------------------------------------
+        
 
 
         // TOP MENU // ----------------------------------------------------------------
@@ -144,7 +148,7 @@ public class UI {
         topMenuPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         topMenuPanel.setVisible(false);
 
-        // Left Label
+        // Top Left Panel
         // Dimensions
         CreateObjectSpace topLeftSpace = new CreateObjectSpace(topMenuPanel, .33, 1, 0, 0);
         topLeft = new JPanel();
@@ -154,7 +158,7 @@ public class UI {
 
         topMenuPanel.add(topLeft);
 
-        // Middle Label
+        // Top Middle Panel
         // Dimensions
         CreateObjectSpace topMiddleSpace = new CreateObjectSpace(topMenuPanel, .34, 1, .33, 0);
         topMiddle = new JPanel();
@@ -164,7 +168,7 @@ public class UI {
 
         topMenuPanel.add(topMiddle);
 
-        // Right Label
+        // Top Right Panel
         // Dimensions
         CreateObjectSpace topRightSpace = new CreateObjectSpace(topMenuPanel, .33, 1, .67, 0);
         topRight = new JPanel();
@@ -193,6 +197,72 @@ public class UI {
 
         con.add(bottomMenuPanel);
 
+        // Bottom Left Panel
+        // Dimensions
+        CreateObjectSpace bottomLeftSpace = new CreateObjectSpace(bottomMenuPanel, .33, 1, 0, 0);
+        bottomLeft = new JPanel();
+        bottomLeftSpace.applyBounds(bottomLeft);
+        bottomLeft.setBackground(Color.green);
+        bottomLeft.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        bottomMenuPanel.add(bottomLeft);
+
+        // Bottom Middle Panel
+        // Dimensions
+        CreateObjectSpace bottomMiddleSpace = new CreateObjectSpace(bottomMenuPanel, .34, 1, .33, 0);
+        bottomMiddle = new JPanel();
+        bottomMiddleSpace.applyBounds(bottomMiddle);
+        bottomMiddle.setBackground(Color.red);
+        bottomMiddle.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        bottomMenuPanel.add(bottomMiddle);
+
+        // Bottom Right Panel
+        // Dimensions
+        CreateObjectSpace bottomRightSpace = new CreateObjectSpace(bottomMenuPanel, .33, 1, .67, 0);
+        bottomRight = new JPanel();
+        bottomRightSpace.applyBounds(bottomRight);
+        bottomRight.setBackground(Color.blue);
+        bottomRight.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        bottomMenuPanel.add(bottomRight);
+
+
+        // Gamplay area // ----------------------------------------------------------------
+
+        // GAMEPLAY WINDOW // -------------------------------------------------------------
+        // Dimensions for Gameplay Space
+        CreateObjectSpace gameplaySpace = new CreateObjectSpace(con, 1, .7, 0, .3);
+
+        // Panel for Gameplay Space
+        gameplayPanel = new JPanel();
+        gameplaySpace.applyBounds(gameplayPanel);
+        gameplayPanel.setLayout(null); // Used this to manually position items
+        gameplayPanel.setBackground(Color.gray);
+        gameplayPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        gameplayPanel.setVisible(false);
+
+        con.add(gameplayPanel);
+
+        // Playing Area
+        // Dimensions
+        CreateObjectSpace playingAreaSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, 0);
+        playingAreaPanel = new JPanel();
+        playingAreaSpace.applyBounds(playingAreaPanel);
+        playingAreaPanel.setBackground(Color.pink);
+        playingAreaPanel.setBorder(BorderFactory.createLineBorder(Color.pink));
+
+        gameplayPanel.add(playingAreaPanel);
+
+         // Hand Area
+        // Dimensions
+        CreateObjectSpace handViewSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, .5);
+        handViewPanel = new JPanel();
+        handViewSpace.applyBounds(handViewPanel);
+        handViewPanel.setBackground(Color.orange);
+        handViewPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+
+        gameplayPanel.add(handViewPanel);
 
 
     }
