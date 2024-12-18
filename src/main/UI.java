@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,8 +20,16 @@ public class UI {
     JPanel titleNamePanel;
     // JLabel for title
     JLabel titleNameLable;
-
+    // Top Menu
     JPanel topMenuPanel;
+    JPanel topLeft;
+    JPanel topMiddle;
+    JPanel topRight;
+    // Bottom Menu
+    JPanel bottomMenuPanel;
+    JPanel bottomLeft;
+    JPanel bottomMiddle;
+    JPanel bottomRight;
 
     // Title Text Font
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
@@ -121,6 +130,9 @@ public class UI {
 
         // Gamplay area // ----------------------------------------------------------------
 
+
+        // TOP MENU // ----------------------------------------------------------------
+
         // Dimensions for top menu
         CreateObjectSpace topMenuSpace = new CreateObjectSpace(con, 1, .15, 0, 0);
 
@@ -129,10 +141,57 @@ public class UI {
         topMenuSpace.applyBounds(topMenuPanel);
         topMenuPanel.setLayout(null); // Used this to manually position items
         topMenuPanel.setBackground(Color.gray);
-
+        topMenuPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         topMenuPanel.setVisible(false);
 
+        // Left Label
+        // Dimensions
+        CreateObjectSpace topLeftSpace = new CreateObjectSpace(topMenuPanel, .33, 1, 0, 0);
+        topLeft = new JPanel();
+        topLeftSpace.applyBounds(topLeft);
+        topLeft.setBackground(Color.green);
+        topLeft.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        topMenuPanel.add(topLeft);
+
+        // Middle Label
+        // Dimensions
+        CreateObjectSpace topMiddleSpace = new CreateObjectSpace(topMenuPanel, .34, 1, .33, 0);
+        topMiddle = new JPanel();
+        topMiddleSpace.applyBounds(topMiddle);
+        topMiddle.setBackground(Color.red);
+        topMiddle.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        topMenuPanel.add(topMiddle);
+
+        // Right Label
+        // Dimensions
+        CreateObjectSpace topRightSpace = new CreateObjectSpace(topMenuPanel, .33, 1, .67, 0);
+        topRight = new JPanel();
+        topRightSpace.applyBounds(topRight);
+        topRight.setBackground(Color.blue);
+        topRight.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+        topMenuPanel.add(topRight);
+        
+
+
         con.add(topMenuPanel);
+
+        // BOTTOM MENU // ----------------------------------------------------------------
+
+        // Dimensions for bottom menu
+        CreateObjectSpace bottomMenuSpace = new CreateObjectSpace(con, 1, .15, 0, .15);
+
+        // Panel for bottom menu
+        bottomMenuPanel = new JPanel();
+        bottomMenuSpace.applyBounds(bottomMenuPanel);
+        bottomMenuPanel.setLayout(null); // Used this to manually position items
+        bottomMenuPanel.setBackground(Color.gray);
+        bottomMenuPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        bottomMenuPanel.setVisible(false);
+
+        con.add(bottomMenuPanel);
 
 
 
