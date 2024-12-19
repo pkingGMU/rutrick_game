@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -46,6 +47,8 @@ public class UI {
     JPanel bottomRight;
     //GameplayPanel
     JPanel gameplayPanel;
+    JButton testCard;
+
     JPanel playingAreaPanel;
     JPanel handViewPanel;
 
@@ -304,6 +307,7 @@ public class UI {
         gameplayPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         gameplayPanel.setVisible(false);
 
+
         con.add(gameplayPanel);
 
         // Playing Area
@@ -316,17 +320,43 @@ public class UI {
 
         gameplayPanel.add(playingAreaPanel);
 
-         // Hand Area
-        // Dimensions
+        // Hand Area
         CreateObjectSpace handViewSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, .5);
         handViewPanel = new JPanel();
         handViewSpace.applyBounds(handViewPanel);
         handViewPanel.setBackground(Color.orange);
         handViewPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
-
+    
         gameplayPanel.add(handViewPanel);
+        
 
+        
+    
+}
+    // Hand Area
+    public void updateHandView(ArrayList<Card> playerHand) {
+        if (handViewPanel != null) {
+            gameplayPanel.remove(handViewPanel); // Remove the old panel
+        }
+        // Create a new panel with the current hand
+        // Old way of doing it
+        //CreateObjectSpace handViewSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, .5);
+        //handViewPanel = new JPanel();
+        //handViewSpace.applyBounds(handViewPanel);
+        //handViewPanel.setBackground(Color.blue);
+        //handViewPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+
+        //New way
+        CreateObjectSpace handViewSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, .5);
+        handViewPanel = new CardDisplay(playerHand, handViewSpace);
+
+    // Add to the gameplay panel
+    gameplayPanel.add(handViewPanel);
+    gameplayPanel.revalidate();
+    gameplayPanel.repaint();
 
     }
     
+
+
 }
