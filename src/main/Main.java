@@ -33,9 +33,13 @@ public class Main {
         randomHand = hand.createRandomHand(deck);
 
         hand.printHand();
+        
+        ui.updateHandView(randomHand);
 
-
-
+        for (Card card : randomHand) {
+            card.getImageIcon();
+            
+        }
 
     }
 
@@ -51,6 +55,19 @@ public class Main {
                 case "start": vm.showGamePlayArea();
             }
 
+        }
+    }
+
+    public class CardClickHandler implements ActionListener {
+
+        
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        String cardDetails = e.getActionCommand(); // Get card info
+        System.out.println("Card clicked: " + cardDetails);
+
+        
         }
     }
 
