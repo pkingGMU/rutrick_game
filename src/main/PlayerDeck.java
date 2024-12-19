@@ -21,16 +21,18 @@ public class PlayerDeck {
         String[] fillTypes = {"Solid", "Striped", "Empty"};
 
         // Create all combinations of color, number, shape, and fill
-        for (String color : colorTypes) {
-            for (String number : numberTypes) {
-                for (String shape : shapeTypes) {
-                    for (String fill : fillTypes) {
-                        // Each card is by the Card Class
-                        deck.add(new Card(color, number, shape, fill));
-                    }
-                }
-            }
-        }
+        //for (String color : colorTypes) {
+        //    for (String number : numberTypes) {
+        //        for (String shape : shapeTypes) {
+        //           for (String fill : fillTypes) {
+        //                // Each card is by the Card Class
+        //                deck.add(new Card(color, number, shape, fill));
+        //            }
+        //        }
+        //    }
+        //}
+
+        deck.add(new Card("Red","3","Triangle","Empty"));
 
         shuffleDeck();
     }
