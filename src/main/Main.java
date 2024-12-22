@@ -34,7 +34,7 @@ public class Main {
 
         hand.printHand();
         
-        ui.updateHandView(randomHand);
+        ui.updateHandView(randomHand, aHandler);
 
         for (Card card : randomHand) {
             card.getImageIcon();
@@ -52,22 +52,17 @@ public class Main {
             String choice = event.getActionCommand();
 
             switch(choice){
-                case "start": vm.showGamePlayArea();
+                case "start": 
+                    vm.showGamePlayArea();
+                    break;
+                case "cardClick": 
+                    System.out.println("Clicked");
+                    randomHand = hand.drawCard(deck);
+                    ui.updateHandView(randomHand, aHandler);
+                    break;
+
             }
 
-        }
-    }
-
-    public class CardClickHandler implements ActionListener {
-
-        
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-        String cardDetails = e.getActionCommand(); // Get card info
-        System.out.println("Card clicked: " + cardDetails);
-
-        
         }
     }
 

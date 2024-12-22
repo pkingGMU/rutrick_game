@@ -334,7 +334,7 @@ public class UI {
     
 }
     // Hand Area
-    public void updateHandView(ArrayList<Card> playerHand) {
+    public void updateHandView(ArrayList<Card> playerHand, Main.GameActionListener aHandler) {
         if (handViewPanel != null) {
             gameplayPanel.remove(handViewPanel); // Remove the old panel
         }
@@ -348,7 +348,7 @@ public class UI {
 
         //New way
         CreateObjectSpace handViewSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, .5);
-        handViewPanel = new CardDisplay(playerHand, handViewSpace);
+        handViewPanel = new CardDisplay(playerHand, handViewSpace, aHandler);
 
     // Add to the gameplay panel
     gameplayPanel.add(handViewPanel);

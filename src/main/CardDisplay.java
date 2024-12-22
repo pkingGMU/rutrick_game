@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 public class CardDisplay extends JPanel{
     
-    public CardDisplay(ArrayList<Card> cards, CreateObjectSpace handViewSpace) {
+    public CardDisplay(ArrayList<Card> cards, CreateObjectSpace handViewSpace, Main.GameActionListener aHandler) {
 
         handViewSpace.applyBounds(this);
 
@@ -37,7 +37,11 @@ public class CardDisplay extends JPanel{
             JButton cardButton = new JButton(cardImage);
             cardButton.setBorder(BorderFactory.createEmptyBorder()); // Remove button border
             cardButton.setContentAreaFilled(false); // Make background transparent
-            cardButton.setActionCommand(card.toString()); // Attach card details
+            
+
+            // Button action handler
+            cardButton.addActionListener(aHandler);
+            cardButton.setActionCommand("cardClick");
             
 
             this.add(cardButton);

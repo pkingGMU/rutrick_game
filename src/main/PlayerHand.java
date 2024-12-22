@@ -7,14 +7,17 @@ public class PlayerHand {
 
     private ArrayList<Card> hand;
     private int handSize;
+    
 
     public PlayerHand() {
-        this.handSize = 4;
+        this.handSize = 1;
         this.hand = new ArrayList<>();
+
 
     }
 
     public ArrayList<Card> createRandomHand(PlayerDeck deck) {
+        
         hand.clear();
 
         Collections.shuffle(deck.getDeck());
@@ -25,6 +28,11 @@ public class PlayerHand {
 
         return hand;
 
+    }
+
+    public ArrayList<Card> drawCard(PlayerDeck deck) {
+        hand.add(deck.drawCard());
+        return hand;
     }
 
     // Get the current hand
