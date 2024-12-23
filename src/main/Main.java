@@ -56,14 +56,33 @@ public class Main {
                     vm.showGamePlayArea();
                     break;
                 case "handCardClick": 
+
+                    if (pendingHand.getCurrentHandSize() >= 3) {
+                        System.out.println("Hand is full");
+                        return;
+                    }
+
+                    Card clickedCard = null;
+
                     System.out.println("Clicked");
                     // Get the info of the card that was clicked
-                    String cardInfo = ((JButton) event.getSource()).getIcon().toString();
+                    JButton sourceButton = (JButton) event.getSource();
+
+                    if (sourceButton instanceof CardButton) {
+                        // Cast to CardButton and get the associated Card
+                        CardButton cardButton = (CardButton) sourceButton;
+                        clickedCard = cardButton.getCard();
+                        
+                        // Now you can use the Card object for whatever you need
+                        System.out.println("Card clicked: " + clickedCard);
+                        
+                        
+                    }
                     
-                    pendingHand.addCard(cardInfo);
+                    pendingHand.addCard(clickedCard);
                     pendingHand.printHand();
 
-                    hand.removeCard(cardInfo);
+                    hand.removeCard(clickedCard);
 
                     
                     ui.updateHandView(randomHand, aHandler);
@@ -72,18 +91,34 @@ public class Main {
 
                 case "pendingCardClick":
                     System.out.println("Clicked");
+
+                    Card clickedCard2 = null;
+
+
                     // Get the info of the card that was clicked
-                    String cardInfo2 = ((JButton) event.getSource()).getIcon().toString();
+                    JButton sourceButton2 = (JButton) event.getSource();
+
+                    if (sourceButton2 instanceof CardButton) {
+                        // Cast to CardButton and get the associated Card
+                        CardButton cardButton2 = (CardButton) sourceButton2;
+                        clickedCard2 = cardButton2.getCard();
+                        
+                        // Now you can use the Card object for whatever you need
+                        System.out.println("Card clicked: " + clickedCard2);
+                        
+                        
+                    }
                     
-                    pendingHand.removeCard(cardInfo2);
+                    pendingHand.removeCard(clickedCard2);
                     pendingHand.printHand();
 
-                    hand.addCard(cardInfo2);
+                    hand.addCard(clickedCard2);
 
                     
                     ui.updateHandView(randomHand, aHandler);
                     ui.updatePendingView(pendingHand.getHand(), aHandler);
                     break;
+
 
             }
 
