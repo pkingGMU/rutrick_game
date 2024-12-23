@@ -356,6 +356,28 @@ public class UI {
     gameplayPanel.repaint();
 
     }
+
+    public void updatePendingView(ArrayList<Card> pendingHand, Main.GameActionListener aHandler) {
+        if (playingAreaPanel != null) {
+            gameplayPanel.remove(playingAreaPanel); // Remove the old panel
+        }
+        // Create a new panel with the current hand
+        // Old way of doing it
+        //CreateObjectSpace handViewSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, .5);
+        //handViewPanel = new JPanel();
+        //handViewSpace.applyBounds(handViewPanel);
+        //handViewPanel.setBackground(Color.blue);
+        //handViewPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+
+        //New way
+        CreateObjectSpace playingAreaSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, 0);
+        playingAreaPanel = new CardPendingDisplay(pendingHand, playingAreaSpace, aHandler);
+
+        // Add to the gameplay panel
+    gameplayPanel.add(playingAreaPanel);
+    gameplayPanel.revalidate();
+    gameplayPanel.repaint();
+    }
     
 
 

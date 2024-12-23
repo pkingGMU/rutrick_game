@@ -3,6 +3,7 @@ package main;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JButton;
 
 public class Main {
 
@@ -11,6 +12,7 @@ public class Main {
     VisibilityManager vm = new VisibilityManager(ui);
     PlayerDeck deck;
     PlayerHand hand;
+    PendingHand pendingHand;
     ArrayList<Card> randomHand;
 
     public static void main(String[] args) {
@@ -29,17 +31,15 @@ public class Main {
 
         deck = new PlayerDeck();
         hand = new PlayerHand();
+        pendingHand = new PendingHand();
 
         randomHand = hand.createRandomHand(deck);
 
         hand.printHand();
         
         ui.updateHandView(randomHand, aHandler);
+        ui.updatePendingView(pendingHand.getHand(), aHandler);
 
-        for (Card card : randomHand) {
-            card.getImageIcon();
-            
-        }
 
     }
 
@@ -55,10 +55,34 @@ public class Main {
                 case "start": 
                     vm.showGamePlayArea();
                     break;
-                case "cardClick": 
+                case "handCardClick": 
                     System.out.println("Clicked");
-                    randomHand = hand.drawCard(deck);
+                    // Get the info of the card that was clicked
+                    String cardInfo = ((JButton) event.getSource()).getIcon().toString();
+                    
+                    pendingHand.addCard(cardInfo);
+                    pendingHand.printHand();
+
+                    hand.removeCard(cardInfo);
+
+                    
                     ui.updateHandView(randomHand, aHandler);
+                    ui.updatePendingView(pendingHand.getHand(), aHandler);
+                    break;
+
+                case "pendingCardClick":
+                    System.out.println("Clicked");
+                    // Get the info of the card that was clicked
+                    String cardInfo2 = ((JButton) event.getSource()).getIcon().toString();
+                    
+                    pendingHand.removeCard(cardInfo2);
+                    pendingHand.printHand();
+
+                    hand.addCard(cardInfo2);
+
+                    
+                    ui.updateHandView(randomHand, aHandler);
+                    ui.updatePendingView(pendingHand.getHand(), aHandler);
                     break;
 
             }

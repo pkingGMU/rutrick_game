@@ -8,15 +8,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+public class CardPendingDisplay extends JPanel{
 
+     public CardPendingDisplay(ArrayList<Card> cards, CreateObjectSpace pendingViewSpace, Main.GameActionListener aHandler) {
 
-
-
-public class CardDisplay extends JPanel{
-    
-    public CardDisplay(ArrayList<Card> cards, CreateObjectSpace handViewSpace, Main.GameActionListener aHandler) {
-
-        handViewSpace.applyBounds(this);
+        pendingViewSpace.applyBounds(this);
 
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         this.setBackground(Color.orange);
@@ -38,7 +34,7 @@ public class CardDisplay extends JPanel{
 
             // Button action handler
             cardButton.addActionListener(aHandler);
-            cardButton.setActionCommand("handCardClick");
+            cardButton.setActionCommand("pendingCardClick");
             
             
 
@@ -67,7 +63,5 @@ public class CardDisplay extends JPanel{
         this.repaint();
     }
 
-
-
-
+    
 }

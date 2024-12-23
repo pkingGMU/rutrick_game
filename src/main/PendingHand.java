@@ -3,38 +3,17 @@ package main;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class PlayerHand {
-
+public class PendingHand {
     private ArrayList<Card> hand;
     private int handSize;
     
 
-    public PlayerHand() {
-        this.handSize = 2;
+    public PendingHand() {
+        this.handSize = 3;
         this.hand = new ArrayList<>();
 
 
-    }
-
-    public ArrayList<Card> createRandomHand(PlayerDeck deck) {
-        
-        hand.clear();
-
-        Collections.shuffle(deck.getDeck());
-
-        for (int i = 0; i < handSize && deck.getDeckSize() > 0; i++) {
-            hand.add(deck.drawCard());
-        }
-
-        return hand;
-
-    }
-
-    public ArrayList<Card> drawCard(PlayerDeck deck) {
-        hand.add(deck.drawCard());
-        return hand;
     }
 
     public ArrayList<Card> addCard(String pathString) {
@@ -60,7 +39,7 @@ public class PlayerHand {
     }
 
     public ArrayList<Card> removeCard(String pathString) {
-        if (hand.size() <= 0) {
+        if (hand.size() <=0) {
             return hand;
         }
 
@@ -89,7 +68,7 @@ public class PlayerHand {
         for (Card card : hand) {
 
 
-
+            System.err.println("\n\n\n");
             System.out.println(String.join(", ", card.toString()));
         }
     }
@@ -98,5 +77,6 @@ public class PlayerHand {
     public void setHandSize(int newSize) {
         this.handSize = newSize;
     }
+    
     
 }
