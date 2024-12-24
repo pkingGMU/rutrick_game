@@ -20,16 +20,16 @@ public class CardDisplay extends JPanel{
 
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         this.setBackground(Color.orange);
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 
         
 
         for (Card card : cards) {
-            // Load the card image
-            ImageIcon cardImage = new ImageIcon(card.getImagePath());
+
 
             // Create a mew button
-            JButton cardButton = new JButton(cardImage);
+            CardButton cardButton = new CardButton(card);
             
             
             cardButton.setBorder(BorderFactory.createEmptyBorder()); // Remove button border

@@ -16,45 +16,21 @@ public class PendingHand {
 
     }
 
-    public ArrayList<Card> addCard(String pathString) {
+    public ArrayList<Card> addCard(Card card) {
 
         if (hand.size() >= handSize) {
             return hand;
         }
-
-        Path path = Paths.get(pathString);
-        String fileName = path.getFileName().toString();
-
-        // Remove the file extension
-        String[] parts = fileName.split("\\.");
-        String cardName = parts[0];
-        // Split the card name into its parts
-        String[] cardParts = cardName.split("_");
-
-        
-
-        hand.add(new Card(cardParts[0], cardParts[1], cardParts[2], cardParts[3]));
+        hand.add(card);
         return hand;
         
     }
 
-    public ArrayList<Card> removeCard(String pathString) {
+    public ArrayList<Card> removeCard(Card card) {
         if (hand.size() <=0) {
             return hand;
         }
-
-        Path path = Paths.get(pathString);
-        String fileName = path.getFileName().toString();
-
-        // Remove the file extension
-        String[] parts = fileName.split("\\.");
-        String cardName = parts[0];
-        // Split the card name into its parts
-        String[] cardParts = cardName.split("_");
-
-        
-
-        hand.remove(new Card(cardParts[0], cardParts[1], cardParts[2], cardParts[3]));
+        hand.remove(card);
         return hand;
     }
 
@@ -76,6 +52,14 @@ public class PendingHand {
     // Set hand size
     public void setHandSize(int newSize) {
         this.handSize = newSize;
+    }
+
+    public int getHandSize() {
+        return handSize;
+    }
+
+    public int getCurrentHandSize() {
+        return hand.size();
     }
     
     
