@@ -44,6 +44,8 @@ public class UI {
     Font potTotalFont = new Font("Times New Roman", Font.PLAIN,20);
 
     JPanel bottomMiddle;
+    JButton viewDeckButton;
+
     JPanel bottomRight;
     //GameplayPanel
     JPanel gameplayPanel;
@@ -51,6 +53,8 @@ public class UI {
 
     JPanel playingAreaPanel;
     JPanel handViewPanel;
+
+    JPanel deckViewPanel;
 
     // Title Text Font
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
@@ -60,6 +64,9 @@ public class UI {
     JButton startButton;
     // Normal Font
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
+
+    // Score stuff
+    PendingScoreManager pendingScore = new PendingScoreManager();
 
     public void createUI(Main.GameActionListener aHandler) {
 
@@ -263,7 +270,7 @@ public class UI {
         potTotalLabel.setFont(scoreTotalFont);
 
         // Text that will display Total Score Value: 
-        potTotalValueLabel = new JLabel("0");
+        potTotalValueLabel = new JLabel(pendingScore.getScoreString());
         potTotalValueLabel.setBackground(Color.black);
         potTotalValueLabel.setForeground(Color.white);
         potTotalValueLabel.setFont(scoreTotalFont);
@@ -280,6 +287,17 @@ public class UI {
         bottomMiddle.setBackground(Color.red);
         bottomMiddle.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+        // Start button
+        viewDeckButton = new JButton("View Deck");
+        viewDeckButton.setBackground(Color.black);
+        //viewDeckButton.setForeground(Color.white);
+        viewDeckButton.setFont(normalFont);
+
+        // Button action handler
+        viewDeckButton.addActionListener(aHandler);
+        viewDeckButton.setActionCommand("viewDeck");
+
+        bottomMiddle.add(viewDeckButton);
         bottomMenuPanel.add(bottomMiddle);
 
         // Bottom Right Panel
@@ -317,6 +335,7 @@ public class UI {
         playingAreaSpace.applyBounds(playingAreaPanel);
         playingAreaPanel.setBackground(Color.pink);
         playingAreaPanel.setBorder(BorderFactory.createLineBorder(Color.pink));
+        playingAreaPanel.setVisible(false);
 
         gameplayPanel.add(playingAreaPanel);
 
@@ -326,8 +345,19 @@ public class UI {
         handViewSpace.applyBounds(handViewPanel);
         handViewPanel.setBackground(Color.orange);
         handViewPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+        handViewPanel.setVisible(false);
     
         gameplayPanel.add(handViewPanel);
+
+        // View deck panel that replaces both playingarea and handview
+        CreateObjectSpace deckViewSpace = new CreateObjectSpace(gameplayPanel, 1, 1, 0, 0);
+        deckViewPanel = new JPanel();
+        deckViewSpace.applyBounds(deckViewPanel);
+        deckViewPanel.setBackground(Color.red);
+        deckViewPanel.setBorder(BorderFactory.createLineBorder(Color.blue));
+        deckViewPanel.setVisible(false);
+        gameplayPanel.add(deckViewPanel);
+
         
 
         
@@ -350,14 +380,14 @@ public class UI {
         CreateObjectSpace handViewSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, .5);
         handViewPanel = new CardDisplay(playerHand, handViewSpace, aHandler);
 
-    // Add to the gameplay panel
-    gameplayPanel.add(handViewPanel);
-    gameplayPanel.revalidate();
-    gameplayPanel.repaint();
+        // Add to the gameplay panel
+        gameplayPanel.add(handViewPanel);
+        gameplayPanel.revalidate();
+        gameplayPanel.repaint();
 
     }
 
-    public void updatePendingView(ArrayList<Card> pendingHand, Main.GameActionListener aHandler) {
+    public void updatePendingView(ArrayList<Card> pendingHand, Main.GameActionListener aHandler, String score) {
         if (playingAreaPanel != null) {
             gameplayPanel.remove(playingAreaPanel); // Remove the old panel
         }
@@ -374,9 +404,27 @@ public class UI {
         playingAreaPanel = new CardPendingDisplay(pendingHand, playingAreaSpace, aHandler);
 
         // Add to the gameplay panel
-    gameplayPanel.add(playingAreaPanel);
-    gameplayPanel.revalidate();
-    gameplayPanel.repaint();
+        gameplayPanel.add(playingAreaPanel);
+        gameplayPanel.revalidate();
+        gameplayPanel.repaint();
+
+        // Change the potential score value
+        if (potTotalValueLabel != null) {
+            bottomLeft.remove(potTotalValueLabel);
+        }
+        
+        // Text that will display Total Score Value: 
+        potTotalValueLabel = new JLabel(score);
+        potTotalValueLabel.setBackground(Color.black);
+        potTotalValueLabel.setForeground(Color.white);
+        potTotalValueLabel.setFont(scoreTotalFont);
+
+        bottomLeft.add(potTotalLabel);
+        bottomLeft.add(potTotalValueLabel);
+        bottomMenuPanel.add(bottomLeft);
+
+        bottomMenuPanel.revalidate();
+        bottomMenuPanel.repaint();
     }
     
 

@@ -14,6 +14,7 @@ public class Main {
     PlayerHand hand;
     PendingHand pendingHand;
     ArrayList<Card> randomHand;
+    PendingScoreManager pendingScoreManager = new PendingScoreManager();
 
     public static void main(String[] args) {
         System.out.println("Hello, World!");
@@ -38,7 +39,7 @@ public class Main {
         hand.printHand();
         
         ui.updateHandView(randomHand, aHandler);
-        ui.updatePendingView(pendingHand.getHand(), aHandler);
+        ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
 
 
     }
@@ -84,9 +85,13 @@ public class Main {
 
                     hand.removeCard(clickedCard);
 
+                    pendingScoreManager.setCards(pendingHand.getHand());
+                    pendingScoreManager.calculateScore();
+                    System.out.println("Score: " + pendingScoreManager.getScoreString());
+
                     
                     ui.updateHandView(randomHand, aHandler);
-                    ui.updatePendingView(pendingHand.getHand(), aHandler);
+                    ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
                     break;
 
                 case "pendingCardClick":
@@ -112,12 +117,34 @@ public class Main {
                     pendingHand.removeCard(clickedCard2);
                     pendingHand.printHand();
 
+
+
                     hand.addCard(clickedCard2);
+
+                    pendingScoreManager.setCards(pendingHand.getHand());
+                    pendingScoreManager.calculateScore();
+                    System.out.println("Score: " + pendingScoreManager.getScoreString());
 
                     
                     ui.updateHandView(randomHand, aHandler);
-                    ui.updatePendingView(pendingHand.getHand(), aHandler);
+                    ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
                     break;
+                
+                case "viewDeck":
+                    if (vm.viewDeckState == false) {
+                        System.out.println("View Deck");
+                        vm.showFullDeck();
+                        break;
+                    }
+                    
+
+                    if (vm.viewDeckState == true) {
+                        System.out.println("View Gameplay");
+                        vm.showGamePlayArea();
+                        break;
+                    }
+                    
+                    
 
 
             }
