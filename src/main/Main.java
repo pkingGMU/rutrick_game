@@ -37,9 +37,13 @@ public class Main {
         randomHand = hand.createRandomHand(deck);
 
         hand.printHand();
+
+        vm.printDeckState();
         
         ui.updateHandView(randomHand, aHandler);
         ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
+
+        
 
 
     }
@@ -57,10 +61,12 @@ public class Main {
                     vm.showGamePlayArea();
                     break;
                 case "handCardClick": 
+                    vm.printDeckState();
 
                     if (pendingHand.getCurrentHandSize() >= 3) {
                         System.out.println("Hand is full");
-                        return;
+                        break;
+                        
                     }
 
                     Card clickedCard = null;
@@ -92,9 +98,14 @@ public class Main {
                     
                     ui.updateHandView(randomHand, aHandler);
                     ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
+                    ui.updateFullCardView(deck.getDeck(), aHandler);
+
+                    vm.printDeckState();
+
                     break;
 
                 case "pendingCardClick":
+                    vm.printDeckState();
                     System.out.println("Clicked");
 
                     Card clickedCard2 = null;
@@ -128,21 +139,38 @@ public class Main {
                     
                     ui.updateHandView(randomHand, aHandler);
                     ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
+                    ui.updateFullCardView(deck.getDeck(), aHandler);
+
+                    
                     break;
                 
                 case "viewDeck":
-                    if (vm.viewDeckState == false) {
+                    if (!vm.viewDeckState) {
+                        
                         System.out.println("View Deck");
                         vm.showFullDeck();
-                        break;
-                    }
-                    
+                        ui.updateFullCardView(deck.getDeck(), aHandler);
+                        vm.printDeckState();
 
-                    if (vm.viewDeckState == true) {
+
+
+                        
+
+
+                    } else {
+                        
                         System.out.println("View Gameplay");
                         vm.showGamePlayArea();
-                        break;
+                        ui.updateFullCardView(deck.getDeck(), aHandler);
+                        vm.printDeckState();
+
+                        
                     }
+                    break;
+
+                    
+
+                    
                     
                     
 

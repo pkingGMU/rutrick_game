@@ -426,6 +426,21 @@ public class UI {
         bottomMenuPanel.revalidate();
         bottomMenuPanel.repaint();
     }
+
+    public void updateFullCardView (ArrayList<Card> fullDeck, Main.GameActionListener aHandler) {
+        if (deckViewPanel != null) {
+            gameplayPanel.remove(deckViewPanel); // Remove the old panel
+        }
+
+        //New way
+        CreateObjectSpace deckViewSpace = new CreateObjectSpace(gameplayPanel, 1, 1, 0, 0);
+        deckViewPanel = new CardFullDisplay(fullDeck, deckViewSpace, aHandler);
+
+        // Add to the gameplay panel
+        gameplayPanel.add(deckViewPanel);
+        gameplayPanel.revalidate();
+        gameplayPanel.repaint();
+    }
     
 
 

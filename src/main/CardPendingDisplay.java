@@ -22,41 +22,26 @@ public class CardPendingDisplay extends JPanel{
             
 
             // Create a mew button
-            CardButton cardButton = new CardButton(card);
+            CardButton pendingCardButton = new CardButton(card);
             
             
-            cardButton.setBorder(BorderFactory.createEmptyBorder()); // Remove button border
-            cardButton.setContentAreaFilled(false); // Make background transparent
+            pendingCardButton.setBorder(BorderFactory.createEmptyBorder()); // Remove button border
+            pendingCardButton.setContentAreaFilled(false); // Make background transparent
             
 
             // Button action handler
-            cardButton.addActionListener(aHandler);
-            cardButton.setActionCommand("pendingCardClick");
+            pendingCardButton.addActionListener(aHandler);
+            pendingCardButton.setActionCommand("pendingCardClick");
             
             
 
-            this.add(cardButton);
+            this.add(pendingCardButton);
         }
 
         
 
 
 
-    }
-
-    // Method to update the panel with new cards
-    public void updateCards(ArrayList<Card> cards) {
-        this.removeAll(); // Clear existing cards
-        for (Card card : cards) {
-            CardButton cardButton = new CardButton(card);
-            cardButton.setBorder(BorderFactory.createEmptyBorder());
-            cardButton.setContentAreaFilled(false);
-            cardButton.setActionCommand(card.toString());
-            
-            this.add(cardButton);
-        }
-        this.revalidate(); // Refresh the layout
-        this.repaint();
     }
 
     

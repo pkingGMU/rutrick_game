@@ -68,5 +68,13 @@ public class VisibilityManager {
         //Update the viewDeckState
         viewDeckState = true;
     }
+
+    public void setDeckState(boolean state) {
+        viewDeckState = state;
+    }
+
+    public void printDeckState() {
+        System.out.println("Deck State: " + viewDeckState);
+    }
     
 }
