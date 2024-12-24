@@ -284,7 +284,7 @@ public class UI {
         CreateObjectSpace bottomMiddleSpace = new CreateObjectSpace(bottomMenuPanel, .34, 1, .33, 0);
         bottomMiddle = new JPanel();
         bottomMiddleSpace.applyBounds(bottomMiddle);
-        bottomMiddle.setBackground(Color.red);
+        bottomMiddle.setBackground(Color.BLACK);
         bottomMiddle.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Start button
