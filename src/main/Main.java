@@ -15,6 +15,7 @@ public class Main {
     PendingHand pendingHand;
     ArrayList<Card> randomHand;
     PendingScoreManager pendingScoreManager = new PendingScoreManager();
+    TotalScoreManager totalScoreManager = new TotalScoreManager();
 
     public static void main(String[] args) {
         System.out.println("Hello, World!");
@@ -165,6 +166,20 @@ public class Main {
                         vm.printDeckState();
 
                         
+                    }
+                    break;
+
+                case "playHand":
+                    if (pendingHand.getCurrentHandSize() == 3) {
+                        System.out.println("Play Hand");
+                        totalScoreManager.updateTotalScore(pendingScoreManager.getScoreInt());
+                        totalScoreManager.printTotalScore();
+
+                        ui.updateTotalScoreView(totalScoreManager.getTotalScoreString());
+                        
+                        
+                    } else {
+                        System.out.println("Hand is not full");
                     }
                     break;
 

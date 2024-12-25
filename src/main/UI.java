@@ -45,6 +45,7 @@ public class UI {
 
     JPanel bottomMiddle;
     JButton viewDeckButton;
+    JButton playHandButton;
 
     JPanel bottomRight;
     //GameplayPanel
@@ -287,7 +288,7 @@ public class UI {
         bottomMiddle.setBackground(Color.BLACK);
         bottomMiddle.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        // Start button
+        // View deck button
         viewDeckButton = new JButton("View Deck");
         viewDeckButton.setBackground(Color.black);
         //viewDeckButton.setForeground(Color.white);
@@ -297,6 +298,17 @@ public class UI {
         viewDeckButton.addActionListener(aHandler);
         viewDeckButton.setActionCommand("viewDeck");
 
+        // Play hand button
+        playHandButton = new JButton("Play Hand");
+        playHandButton.setBackground(Color.black);
+        //viewDeckButton.setForeground(Color.white);
+        playHandButton.setFont(normalFont);
+
+        // Button action handler
+        playHandButton.addActionListener(aHandler);
+        playHandButton.setActionCommand("playHand");
+
+        bottomMiddle.add(playHandButton);
         bottomMiddle.add(viewDeckButton);
         bottomMenuPanel.add(bottomMiddle);
 
@@ -368,13 +380,6 @@ public class UI {
         if (handViewPanel != null) {
             gameplayPanel.remove(handViewPanel); // Remove the old panel
         }
-        // Create a new panel with the current hand
-        // Old way of doing it
-        //CreateObjectSpace handViewSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, .5);
-        //handViewPanel = new JPanel();
-        //handViewSpace.applyBounds(handViewPanel);
-        //handViewPanel.setBackground(Color.blue);
-        //handViewPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
 
         //New way
         CreateObjectSpace handViewSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, .5);
@@ -391,13 +396,6 @@ public class UI {
         if (playingAreaPanel != null) {
             gameplayPanel.remove(playingAreaPanel); // Remove the old panel
         }
-        // Create a new panel with the current hand
-        // Old way of doing it
-        //CreateObjectSpace handViewSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, .5);
-        //handViewPanel = new JPanel();
-        //handViewSpace.applyBounds(handViewPanel);
-        //handViewPanel.setBackground(Color.blue);
-        //handViewPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
 
         //New way
         CreateObjectSpace playingAreaSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, 0);
@@ -425,6 +423,26 @@ public class UI {
 
         bottomMenuPanel.revalidate();
         bottomMenuPanel.repaint();
+    }
+
+    public void updateTotalScoreView (String score) {
+        if (scoreTotalValueLabel != null) {
+            topLeft.remove(scoreTotalValueLabel);
+        }
+        
+        // Text that will display Total Score Value: 
+        
+        scoreTotalValueLabel = new JLabel(score);
+        scoreTotalValueLabel.setBackground(Color.black);
+        scoreTotalValueLabel.setForeground(Color.white);
+        scoreTotalValueLabel.setFont(scoreTotalFont);
+
+        topLeft.add(scoreTotalLabel);
+        topLeft.add(scoreTotalValueLabel);
+        topMenuPanel.add(topLeft);
+
+        topMenuPanel.revalidate();
+        topMenuPanel.repaint();
     }
 
     public void updateFullCardView (ArrayList<Card> fullDeck, Main.GameActionListener aHandler) {
