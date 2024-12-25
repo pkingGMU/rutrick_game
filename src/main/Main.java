@@ -175,6 +175,20 @@ public class Main {
                         totalScoreManager.updateTotalScore(pendingScoreManager.getScoreInt());
                         totalScoreManager.printTotalScore();
 
+                        pendingHand.clearHand();
+                        pendingScoreManager.setCards(pendingHand.getHand());
+                        pendingScoreManager.calculateScore();
+
+                        hand.drawCard(deck);
+                        hand.drawCard(deck);
+                        hand.drawCard(deck);
+
+                        ui.updateHandView(randomHand, aHandler);
+                        ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
+                        ui.updateFullCardView(deck.getDeck(), aHandler);
+
+
+
                         ui.updateTotalScoreView(totalScoreManager.getTotalScoreString());
                         
                         

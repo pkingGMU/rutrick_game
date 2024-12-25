@@ -1,7 +1,5 @@
 package main;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class PendingHand {
@@ -62,5 +60,8 @@ public class PendingHand {
         return hand.size();
     }
     
+    public void clearHand() {
+        hand.clear();
+    }
     
 }
