@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class PendingScoreManager {
     private int score;
+    private int money;
 
     private boolean colorMatchCheck;
     private boolean numberMatchCheck;
@@ -18,6 +19,7 @@ public class PendingScoreManager {
 
     public PendingScoreManager() {
         this.score = 0;
+        this.money = 0;
     }
 
    
@@ -27,6 +29,7 @@ public class PendingScoreManager {
         if (cards.size() != 3) {
             System.out.println("Error: Incorrect number of cards in pending area");
             this.score = 0;
+            this.money = 0;
             this.colorMatchCheck = false;
             this.numberMatchCheck = false;
             this.shapeMatchCheck = false;
@@ -75,6 +78,21 @@ public class PendingScoreManager {
         }
     }
 
+    public void calculateMoney() {
+        if (this.colorMatchCheck) {
+            this.money += 10;
+        }
+        if (this.numberMatchCheck) {
+            this.money += 10;
+        }
+        if (this.shapeMatchCheck) {
+            this.money += 10;
+        }
+        if (this.fillMatchCheck) {
+            this.money += 10;
+        }
+    }
+
     public int getScoreInt() {
         return this.score;
     }
@@ -85,5 +103,17 @@ public class PendingScoreManager {
 
     public void printScore() {
         System.out.println("Score: " + this.score);
+    }
+
+    public int getMoneyInt() {
+        return this.money;
+    }
+
+    public String getMoneyString() {
+        return Integer.toString(this.money);
+    }
+
+    public void printMoney() {
+        System.out.println("Money: " + this.money);
     }
 }

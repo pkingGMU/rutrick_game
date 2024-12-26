@@ -16,6 +16,7 @@ public class Main {
     ArrayList<Card> randomHand;
     PendingScoreManager pendingScoreManager = new PendingScoreManager();
     TotalScoreManager totalScoreManager = new TotalScoreManager();
+    RoundManager roundManager = new RoundManager();
 
     public static void main(String[] args) {
         System.out.println("Hello, World!");
@@ -37,12 +38,10 @@ public class Main {
 
         randomHand = hand.createRandomHand(deck);
 
-        hand.printHand();
-
-        vm.printDeckState();
+        roundManager.printRound();
         
         ui.updateHandView(randomHand, aHandler);
-        ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
+        ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
 
         
 
@@ -94,11 +93,12 @@ public class Main {
 
                     pendingScoreManager.setCards(pendingHand.getHand());
                     pendingScoreManager.calculateScore();
+                    pendingScoreManager.calculateMoney();
                     System.out.println("Score: " + pendingScoreManager.getScoreString());
 
                     
                     ui.updateHandView(randomHand, aHandler);
-                    ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
+                    ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
                     ui.updateFullCardView(deck.getDeck(), aHandler);
 
                     vm.printDeckState();
@@ -135,11 +135,12 @@ public class Main {
 
                     pendingScoreManager.setCards(pendingHand.getHand());
                     pendingScoreManager.calculateScore();
+                    pendingScoreManager.calculateMoney();
                     System.out.println("Score: " + pendingScoreManager.getScoreString());
 
                     
                     ui.updateHandView(randomHand, aHandler);
-                    ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
+                    ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
                     ui.updateFullCardView(deck.getDeck(), aHandler);
 
                     
@@ -175,21 +176,36 @@ public class Main {
                         totalScoreManager.updateTotalScore(pendingScoreManager.getScoreInt());
                         totalScoreManager.printTotalScore();
 
+                        totalScoreManager.updateTotalMoney(pendingScoreManager.getMoneyInt());
+                        totalScoreManager.printTotalMoney();
+
                         pendingHand.clearHand();
                         pendingScoreManager.setCards(pendingHand.getHand());
                         pendingScoreManager.calculateScore();
+                        pendingScoreManager.calculateMoney();
 
                         hand.drawCard(deck);
                         hand.drawCard(deck);
                         hand.drawCard(deck);
 
                         ui.updateHandView(randomHand, aHandler);
-                        ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
+                        ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
                         ui.updateFullCardView(deck.getDeck(), aHandler);
 
 
 
-                        ui.updateTotalScoreView(totalScoreManager.getTotalScoreString());
+                        ui.updateTotalScoreView(totalScoreManager.getTotalScoreString(), totalScoreManager.getTotalMoneyString());
+
+                        // Update round
+                        if (roundManager.isEndRound()) {
+                            System.out.println("End Round");
+                            vm.showEndScreen();
+                            
+                        } else {
+                            roundManager.nextRound();
+                            roundManager.printRound();
+                        }
+                        
                         
                         
                     } else {

@@ -69,6 +69,10 @@ public class VisibilityManager {
         viewDeckState = true;
     }
 
+    public void showEndScreen() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     public void setDeckState(boolean state) {
         viewDeckState = state;
     }
@@ -76,5 +80,7 @@ public class VisibilityManager {
     public void printDeckState() {
         System.out.println("Deck State: " + viewDeckState);
     }
+
+    
     
 }

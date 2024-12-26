@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public class UI {
     JPanel topLeft;
     JLabel scoreTotalLabel;
     JLabel scoreTotalValueLabel;
+    JLabel moneyTotalLabel;
+    JLabel moneyTotalValueLabel;
     Font scoreTotalFont = new Font("Times New Roman", Font.PLAIN,20);
 
     JPanel topMiddle;
@@ -41,6 +44,8 @@ public class UI {
     JPanel bottomLeft;
     JLabel potTotalLabel;
     JLabel potTotalValueLabel;
+    JLabel potMoneyLabel;
+    JLabel potMoneyValueLabel;
     Font potTotalFont = new Font("Times New Roman", Font.PLAIN,20);
 
     JPanel bottomMiddle;
@@ -185,7 +190,7 @@ public class UI {
         topLeft.setLayout(new GridBagLayout());
 
         // Text that will display Total Score: 
-        scoreTotalLabel = new JLabel("Total Score:  ");
+        scoreTotalLabel = new JLabel("TS:");
         scoreTotalLabel.setBackground(Color.black);
         scoreTotalLabel.setForeground(Color.white);
         scoreTotalLabel.setFont(scoreTotalFont);
@@ -193,10 +198,25 @@ public class UI {
         // Text that will display Total Score Value: 
         scoreTotalValueLabel = new JLabel("0");
         scoreTotalValueLabel.setBackground(Color.black);
-        scoreTotalValueLabel.setForeground(Color.white);
+        scoreTotalValueLabel.setForeground(Color.blue);
         scoreTotalValueLabel.setFont(scoreTotalFont);
 
+        // Text that will display Money Score: 
+        moneyTotalLabel = new JLabel("TM:");
+        moneyTotalLabel.setBackground(Color.black);
+        moneyTotalLabel.setForeground(Color.white);
+        moneyTotalLabel.setFont(scoreTotalFont);
+
+        // Text that will display Total Money Value: 
+        moneyTotalValueLabel = new JLabel("0");
+        moneyTotalValueLabel.setBackground(Color.black);
+        moneyTotalValueLabel.setForeground(Color.yellow);
+        moneyTotalValueLabel.setFont(scoreTotalFont);
+
+        topLeft.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 40));
         
+        topLeft.add(moneyTotalLabel);
+        topLeft.add(moneyTotalValueLabel);
         topLeft.add(scoreTotalLabel);
         topLeft.add(scoreTotalValueLabel);
         topMenuPanel.add(topLeft);
@@ -265,7 +285,7 @@ public class UI {
         bottomLeft.setLayout(new GridBagLayout());
 
         // Text that will display Total Score: 
-        potTotalLabel = new JLabel("Potential Score:  ");
+        potTotalLabel = new JLabel("PS:");
         potTotalLabel.setBackground(Color.black);
         potTotalLabel.setForeground(Color.white);
         potTotalLabel.setFont(scoreTotalFont);
@@ -276,6 +296,23 @@ public class UI {
         potTotalValueLabel.setForeground(Color.white);
         potTotalValueLabel.setFont(scoreTotalFont);
 
+        // Text that will display Money Score: 
+        potMoneyLabel = new JLabel("PM:");
+        potMoneyLabel.setBackground(Color.black);
+        potMoneyLabel.setForeground(Color.white);
+        potMoneyLabel.setFont(scoreTotalFont);
+
+        // Text that will display Money Score Value: 
+        potMoneyValueLabel = new JLabel("0");
+        potMoneyValueLabel.setBackground(Color.black);
+        potMoneyValueLabel.setForeground(Color.white);
+        potMoneyValueLabel.setFont(scoreTotalFont);
+
+        bottomLeft.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 40));
+
+        
+        bottomLeft.add(potMoneyLabel);
+        bottomLeft.add(potMoneyValueLabel);
         bottomLeft.add(potTotalLabel);
         bottomLeft.add(potTotalValueLabel);
         bottomMenuPanel.add(bottomLeft);
@@ -392,7 +429,7 @@ public class UI {
 
     }
 
-    public void updatePendingView(ArrayList<Card> pendingHand, Main.GameActionListener aHandler, String score) {
+    public void updatePendingView(ArrayList<Card> pendingHand, Main.GameActionListener aHandler, String score, String money) {
         if (playingAreaPanel != null) {
             gameplayPanel.remove(playingAreaPanel); // Remove the old panel
         }
@@ -409,6 +446,7 @@ public class UI {
         // Change the potential score value
         if (potTotalValueLabel != null) {
             bottomLeft.remove(potTotalValueLabel);
+            bottomLeft.remove(potMoneyValueLabel);
         }
         
         // Text that will display Total Score Value: 
@@ -417,26 +455,47 @@ public class UI {
         potTotalValueLabel.setForeground(Color.white);
         potTotalValueLabel.setFont(scoreTotalFont);
 
+        // Text that will display Money Score Value: 
+        potMoneyValueLabel = new JLabel(money);
+        potMoneyValueLabel.setBackground(Color.black);
+        potMoneyValueLabel.setForeground(Color.yellow);
+        potMoneyValueLabel.setFont(scoreTotalFont);
+
+        
+
+        
+        bottomLeft.add(potMoneyLabel);
+        bottomLeft.add(potMoneyValueLabel);
         bottomLeft.add(potTotalLabel);
         bottomLeft.add(potTotalValueLabel);
         bottomMenuPanel.add(bottomLeft);
+
 
         bottomMenuPanel.revalidate();
         bottomMenuPanel.repaint();
     }
 
-    public void updateTotalScoreView (String score) {
+    public void updateTotalScoreView (String score, String money) {
         if (scoreTotalValueLabel != null) {
             topLeft.remove(scoreTotalValueLabel);
+            topLeft.remove(moneyTotalValueLabel);
         }
         
         // Text that will display Total Score Value: 
         
         scoreTotalValueLabel = new JLabel(score);
         scoreTotalValueLabel.setBackground(Color.black);
-        scoreTotalValueLabel.setForeground(Color.white);
+        scoreTotalValueLabel.setForeground(Color.green);
         scoreTotalValueLabel.setFont(scoreTotalFont);
 
+        // Text that will display Total Score Value: 
+        moneyTotalValueLabel = new JLabel(money);
+        moneyTotalValueLabel.setBackground(Color.black);
+        moneyTotalValueLabel.setForeground(Color.yellow);
+        moneyTotalValueLabel.setFont(scoreTotalFont);
+
+        topLeft.add(moneyTotalLabel);
+        topLeft.add(moneyTotalValueLabel);
         topLeft.add(scoreTotalLabel);
         topLeft.add(scoreTotalValueLabel);
         topMenuPanel.add(topLeft);
