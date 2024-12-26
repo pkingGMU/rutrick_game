@@ -14,6 +14,8 @@ public class Main {
     PlayerHand hand;
     PendingHand pendingHand;
     ArrayList<Card> randomHand;
+    PendingScoreManager pendingScoreManager = new PendingScoreManager();
+    TotalScoreManager totalScoreManager = new TotalScoreManager();
 
     public static void main(String[] args) {
         System.out.println("Hello, World!");
@@ -36,9 +38,13 @@ public class Main {
         randomHand = hand.createRandomHand(deck);
 
         hand.printHand();
+
+        vm.printDeckState();
         
         ui.updateHandView(randomHand, aHandler);
-        ui.updatePendingView(pendingHand.getHand(), aHandler);
+        ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
+
+        
 
 
     }
@@ -56,10 +62,12 @@ public class Main {
                     vm.showGamePlayArea();
                     break;
                 case "handCardClick": 
+                    vm.printDeckState();
 
                     if (pendingHand.getCurrentHandSize() >= 3) {
                         System.out.println("Hand is full");
-                        return;
+                        break;
+                        
                     }
 
                     Card clickedCard = null;
@@ -84,12 +92,21 @@ public class Main {
 
                     hand.removeCard(clickedCard);
 
+                    pendingScoreManager.setCards(pendingHand.getHand());
+                    pendingScoreManager.calculateScore();
+                    System.out.println("Score: " + pendingScoreManager.getScoreString());
+
                     
                     ui.updateHandView(randomHand, aHandler);
-                    ui.updatePendingView(pendingHand.getHand(), aHandler);
+                    ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
+                    ui.updateFullCardView(deck.getDeck(), aHandler);
+
+                    vm.printDeckState();
+
                     break;
 
                 case "pendingCardClick":
+                    vm.printDeckState();
                     System.out.println("Clicked");
 
                     Card clickedCard2 = null;
@@ -112,12 +129,79 @@ public class Main {
                     pendingHand.removeCard(clickedCard2);
                     pendingHand.printHand();
 
+
+
                     hand.addCard(clickedCard2);
+
+                    pendingScoreManager.setCards(pendingHand.getHand());
+                    pendingScoreManager.calculateScore();
+                    System.out.println("Score: " + pendingScoreManager.getScoreString());
 
                     
                     ui.updateHandView(randomHand, aHandler);
-                    ui.updatePendingView(pendingHand.getHand(), aHandler);
+                    ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
+                    ui.updateFullCardView(deck.getDeck(), aHandler);
+
+                    
                     break;
+                
+                case "viewDeck":
+                    if (!vm.viewDeckState) {
+                        
+                        System.out.println("View Deck");
+                        vm.showFullDeck();
+                        ui.updateFullCardView(deck.getDeck(), aHandler);
+                        vm.printDeckState();
+
+
+
+                        
+
+
+                    } else {
+                        
+                        System.out.println("View Gameplay");
+                        vm.showGamePlayArea();
+                        ui.updateFullCardView(deck.getDeck(), aHandler);
+                        vm.printDeckState();
+
+                        
+                    }
+                    break;
+
+                case "playHand":
+                    if (pendingHand.getCurrentHandSize() == 3) {
+                        System.out.println("Play Hand");
+                        totalScoreManager.updateTotalScore(pendingScoreManager.getScoreInt());
+                        totalScoreManager.printTotalScore();
+
+                        pendingHand.clearHand();
+                        pendingScoreManager.setCards(pendingHand.getHand());
+                        pendingScoreManager.calculateScore();
+
+                        hand.drawCard(deck);
+                        hand.drawCard(deck);
+                        hand.drawCard(deck);
+
+                        ui.updateHandView(randomHand, aHandler);
+                        ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString());
+                        ui.updateFullCardView(deck.getDeck(), aHandler);
+
+
+
+                        ui.updateTotalScoreView(totalScoreManager.getTotalScoreString());
+                        
+                        
+                    } else {
+                        System.out.println("Hand is not full");
+                    }
+                    break;
+
+                    
+
+                    
+                    
+                    
 
 
             }

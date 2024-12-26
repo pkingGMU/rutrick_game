@@ -40,6 +40,18 @@ public class PlayerDeck {
         deck.add(new Card("Red","1","Square","Solid"));
         deck.add(new Card("Red","3","Triangle","Empty"));
         deck.add(new Card("Red","1","Square","Solid"));
+        deck.add(new Card("Red","3","Triangle","Empty"));
+        deck.add(new Card("Red","1","Square","Solid"));
+        deck.add(new Card("Red","3","Triangle","Empty"));
+        deck.add(new Card("Red","1","Square","Solid"));
+        deck.add(new Card("Red","3","Triangle","Empty"));
+        deck.add(new Card("Red","1","Square","Solid"));
+        deck.add(new Card("Red","3","Triangle","Empty"));
+        deck.add(new Card("Red","1","Square","Solid"));
+        deck.add(new Card("Red","3","Triangle","Empty"));
+        deck.add(new Card("Red","1","Square","Solid"));
+        deck.add(new Card("Red","3","Triangle","Empty"));
+        
 
         shuffleDeck();
     }
