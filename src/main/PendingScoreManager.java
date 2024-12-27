@@ -16,6 +16,8 @@ public class PendingScoreManager {
     private String shape;
     private String fill;
 
+    private int numberOfCombos;
+
     private ArrayList<Card> cards;
 
 
@@ -38,6 +40,7 @@ public class PendingScoreManager {
             System.out.println("Error: Incorrect number of cards in pending area");
             this.score = 0;
             this.money = 0;
+            this.numberOfCombos = 0;
             this.colorMatchCheck = false;
             this.numberMatchCheck = false;
             this.shapeMatchCheck = false;
@@ -78,15 +81,17 @@ public class PendingScoreManager {
 
             switch(color) {
                 case "Red": 
-                        this.score = 5;
+                        this.score += 10;
                     break;
                 case"Green":
-                        this.score = 10;
+                        this.score += 10;
                     break;
                 case "Blue": 
-                        this.score = 15;
+                        this.score += 10;
                     break;
             }
+
+            this.numberOfCombos += 1;
 
             
         }
@@ -96,15 +101,17 @@ public class PendingScoreManager {
 
             switch(number) {
                 case "1":
-                        this.score = 5;
+                        this.score += 25;
                     break;
                 case "2":
-                        this.score = 10;
+                        this.score += 50;
                     break;
                 case "3":
-                        this.score = 15;
+                        this.score += 75;
                     break;
             }
+
+            this.numberOfCombos += 1;
             
         }
         if (this.shapeMatchCheck) {
@@ -113,27 +120,41 @@ public class PendingScoreManager {
             
             switch (shape) {
                 case "Circle":
+                    this.score += 5;
                     break;
                 case "Square":
+                    this.score += 5;
                     break;
                 case "Triangle":
+                    this.score += 5;
                     break;
             }
+
+            this.numberOfCombos += 1;
         }
         if (this.fillMatchCheck) {
 
-            fill = cards.get(0).getShape();
+            fill = cards.get(0).getFill();
             
             switch (fill) {
                 case "Solid":
+                    this.score += 0;
                     break;
                 case "Striped":
+                    this.score += 0;
                     break;
                 case "Empty":
+                    this.score += 0;
                     break;
             }
+
+            this.numberOfCombos += 1;
         }
+
+        this.score = score*numberOfCombos;
     }
+
+
 
     public void calculateMoney() {
         if (this.colorMatchCheck) {
@@ -142,10 +163,13 @@ public class PendingScoreManager {
 
             switch(color) {
                 case "Red": 
+                    this.money += 1;
                     break;
                 case"Green":
+                    this.money += 1;
                     break;
                 case "Blue": 
+                    this.money += 1;
                     break;
             }
 
@@ -157,10 +181,13 @@ public class PendingScoreManager {
 
             switch(number) {
                 case "1":
+                    this.money += 0;
                     break;
                 case "2":
+                    this.money += 0;
                     break;
                 case "3":
+                    this.money += 0;
                     break;
             }
             
@@ -171,23 +198,29 @@ public class PendingScoreManager {
             
             switch (shape) {
                 case "Circle":
+                    this.money += 5;
                     break;
                 case "Square":
+                    this.money += 5;
                     break;
                 case "Triangle":
+                    this.money += 5;
                     break;
             }
         }
         if (this.fillMatchCheck) {
 
-            fill = cards.get(0).getShape();
+            fill = cards.get(0).getFill();
             
             switch (fill) {
                 case "Solid":
+                    this.money += 20;
                     break;
                 case "Striped":
+                    this.money += 20;
                     break;
                 case "Empty":
+                    this.money += 20;
                     break;
             }
         }

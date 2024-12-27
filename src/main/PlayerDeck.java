@@ -32,25 +32,22 @@ public class PlayerDeck {
         //    }
         //}
 
-        deck.add(new Card("Red","3","Triangle","Empty"));
+        
         deck.add(new Card("Red","1","Square","Solid"));
-        deck.add(new Card("Red","3","Triangle","Empty"));
-        deck.add(new Card("Red","1","Square","Solid"));
-        deck.add(new Card("Red","3","Triangle","Empty"));
-        deck.add(new Card("Red","1","Square","Solid"));
-        deck.add(new Card("Red","3","Triangle","Empty"));
-        deck.add(new Card("Red","1","Square","Solid"));
-        deck.add(new Card("Red","3","Triangle","Empty"));
-        deck.add(new Card("Red","1","Square","Solid"));
-        deck.add(new Card("Red","3","Triangle","Empty"));
-        deck.add(new Card("Red","1","Square","Solid"));
-        deck.add(new Card("Red","3","Triangle","Empty"));
-        deck.add(new Card("Red","1","Square","Solid"));
-        deck.add(new Card("Red","3","Triangle","Empty"));
-        deck.add(new Card("Red","1","Square","Solid"));
-        deck.add(new Card("Red","3","Triangle","Empty"));
-        deck.add(new Card("Red","1","Square","Solid"));
-        deck.add(new Card("Red","3","Triangle","Empty"));
+        deck.add(new Card("Green","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
+        
+        
         
 
         shuffleDeck();
