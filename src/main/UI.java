@@ -540,6 +540,8 @@ public class UI {
         CreateObjectSpace shopViewSpace = new CreateObjectSpace(gameplayPanel, 1, .9, 0, 0);
         shopViewPanel = new ShopDisplay(shopDeck, shopViewSpace, aHandler);
 
+        
+
         gameplayPanel.add(shopViewPanel);
     }
 
@@ -557,6 +559,27 @@ public class UI {
         // Button action handler
         playHandButton.addActionListener(aHandler);
         playHandButton.setActionCommand("endRound");
+
+        bottomMiddle.add(playHandButton);
+        
+        bottomMiddle.revalidate();
+        bottomMiddle.repaint();
+    }
+
+    public void updateEndRoundButton(Main.GameActionListener aHandler) {
+        if (playHandButton != null) {
+            bottomMiddle.remove(playHandButton);
+        }
+
+        // Play hand button
+        playHandButton = new JButton("Next round");
+        playHandButton.setBackground(Color.black);
+        //viewDeckButton.setForeground(Color.white);
+        playHandButton.setFont(normalFont);
+
+        // Button action handler
+        playHandButton.addActionListener(aHandler);
+        playHandButton.setActionCommand("nextRound");
 
         bottomMiddle.add(playHandButton);
         

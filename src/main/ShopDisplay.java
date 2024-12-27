@@ -25,6 +25,7 @@ public class ShopDisplay extends JPanel{
             // Create a mew button
             CardButton fullCardButton = new CardButton(card);
             
+            fullCardButton.setText(card.getCardCostString());
             
             fullCardButton.setBorder(BorderFactory.createEmptyBorder()); // Remove button border
             fullCardButton.setContentAreaFilled(false); // Make background transparent
@@ -32,7 +33,7 @@ public class ShopDisplay extends JPanel{
 
             // Button action handler
             fullCardButton.addActionListener(aHandler);
-            fullCardButton.setActionCommand("Buy card");
+            fullCardButton.setActionCommand("buyCard");
             
             
 

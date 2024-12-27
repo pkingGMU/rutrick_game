@@ -206,9 +206,12 @@ public class Main {
                         if (roundManager.isEndRound()) {
                             ui.updatePlayHandButton(aHandler);
                             
-                        } else {
+                        } else if (roundManager.isEndStage()) {
                             roundManager.nextRound();
                             roundManager.printRound();
+                            roundManager.resetStage();
+                        } else {
+                            roundManager.nextStage();
                         }
 
                         // Show Store
@@ -228,7 +231,16 @@ public class Main {
                     ui.updateShopView(shopHand, aHandler);
                 
                     vm.showShopScreen();
+
+                    ui.updateEndRoundButton(aHandler);
                     
+                    break;
+                
+                case "nextRound":
+                    
+                
+                case "buyCard":
+                    System.out.println("Buy Card");
                     break;
 
                     

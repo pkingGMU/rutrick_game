@@ -10,11 +10,15 @@ public class Card {
     private String shape;
     private String fill;
 
+    private int cost;
+
     public Card(String color, String number, String shape, String fill) {
         this.color = color;
         this.number = number;
         this.shape = shape;
         this.fill = fill;
+
+        this.cost = calculateCost(color, number, shape, fill);
     }
 
     // Getters
@@ -32,6 +36,81 @@ public class Card {
 
     public String getFill() {
         return fill;
+    }
+
+    public int calculateCost(String color, String number, String shape, String fill) {
+
+            this.cost = 0;
+
+            
+
+            switch(color) {
+                case "Red": 
+                    this.cost += 0;
+                    break;
+                case"Green":
+                    this.cost += 2;
+                    break;
+                case "Blue": 
+                    this.cost += 3;
+                    break;
+            }
+
+            
+        
+        
+
+            switch(number) {
+                case "1":
+                    this.cost += 30;
+                    break;
+                case "2":
+                    this.cost += 40;
+                    break;
+                case "3":
+                    this.cost += 50;
+                    break;
+            }
+            
+        
+        
+            
+            switch (shape) {
+                case "Circle":
+                    this.cost += 0;
+                    break;
+                case "Square":
+                    this.cost += 10;
+                    break;
+                case "Triangle":
+                    this.cost += 15;
+                    break;
+            }
+        
+        
+            
+            switch (fill) {
+                case "Solid":
+                    this.cost += 0;
+                    break;
+                case "Striped":
+                    this.cost += 5;
+                    break;
+                case "Empty":
+                    this.cost += 10;
+                    break;
+            }
+
+            return cost;
+
+    }
+
+    public int getCardCost() {
+        return this.cost;
+    }
+
+    public String getCardCostString() {
+        return Integer.toString(this.cost);
     }
 
     @Override
