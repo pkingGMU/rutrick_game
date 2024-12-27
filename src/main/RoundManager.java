@@ -3,7 +3,7 @@ package main;
 public class RoundManager {
 
     int round = 1;
-    int endround = 3;
+    int endround = 1;
 
     public RoundManager() {
         this.round = 1;

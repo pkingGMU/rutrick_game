@@ -11,9 +11,11 @@ public class Main {
     UI ui = new UI();
     VisibilityManager vm = new VisibilityManager(ui);
     PlayerDeck deck;
+    ShopDeck shopDeck;
     PlayerHand hand;
     PendingHand pendingHand;
     ArrayList<Card> randomHand;
+    ArrayList<Card> shopHand;
     PendingScoreManager pendingScoreManager;
     TotalScoreManager totalScoreManager = new TotalScoreManager();
     RoundManager roundManager = new RoundManager();
@@ -33,11 +35,14 @@ public class Main {
         vm.showTitleScreen();
 
         deck = new PlayerDeck();
+        shopDeck = new ShopDeck();
         hand = new PlayerHand();
         pendingHand = new PendingHand();
         pendingScoreManager = new PendingScoreManager(pendingHand.getHand());
 
         randomHand = hand.createRandomHand(deck);
+
+        shopHand = shopDeck.createShop();
 
         roundManager.printRound();
         
@@ -158,18 +163,15 @@ public class Main {
                         ui.updateFullCardView(deck.getDeck(), aHandler);
                         vm.printDeckState();
 
-
-
-                        
-
-
-                    } else {
+                    } else if (!vm.viewShopState) {
                         
                         System.out.println("View Gameplay");
                         vm.showGamePlayArea();
                         
                         vm.printDeckState();
-
+                    } else {
+                        System.out.println("View Shop");
+                        vm.showShopScreen();
                         
                     }
                     break;
@@ -202,19 +204,31 @@ public class Main {
 
                         // Update round
                         if (roundManager.isEndRound()) {
-                            System.out.println("End Round");
-                            vm.showEndScreen();
+                            ui.updatePlayHandButton(aHandler);
                             
                         } else {
                             roundManager.nextRound();
                             roundManager.printRound();
                         }
+
+                        // Show Store
+                        
                         
                         
                         
                     } else {
                         System.out.println("Hand is not full");
                     }
+
+                    
+
+                    break;
+
+                case "endRound":
+                    ui.updateShopView(shopHand, aHandler);
+                
+                    vm.showShopScreen();
+                    
                     break;
 
                     

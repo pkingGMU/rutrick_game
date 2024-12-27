@@ -46,6 +46,10 @@ public class PlayerDeck {
         deck.add(new Card("Blue","1","Square","Solid"));
         deck.add(new Card("Blue","1","Square","Solid"));
         deck.add(new Card("Blue","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
+        deck.add(new Card("Blue","1","Square","Solid"));
         
         
         
