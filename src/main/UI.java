@@ -418,6 +418,10 @@ public class UI {
             gameplayPanel.remove(handViewPanel); // Remove the old panel
         }
 
+        if (deckViewPanel != null) {
+            gameplayPanel.remove(deckViewPanel); // Remove the old panel
+        }
+
         //New way
         CreateObjectSpace handViewSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, .5);
         handViewPanel = new CardDisplay(playerHand, handViewSpace, aHandler);
@@ -432,6 +436,10 @@ public class UI {
     public void updatePendingView(ArrayList<Card> pendingHand, Main.GameActionListener aHandler, String score, String money) {
         if (playingAreaPanel != null) {
             gameplayPanel.remove(playingAreaPanel); // Remove the old panel
+        }
+
+        if (deckViewPanel != null) {
+            gameplayPanel.remove(deckViewPanel); // Remove the old panel
         }
 
         //New way
@@ -480,6 +488,10 @@ public class UI {
             topLeft.remove(scoreTotalValueLabel);
             topLeft.remove(moneyTotalValueLabel);
         }
+
+        if (deckViewPanel != null) {
+            gameplayPanel.remove(deckViewPanel); // Remove the old panel
+        }
         
         // Text that will display Total Score Value: 
         
@@ -515,8 +527,8 @@ public class UI {
 
         // Add to the gameplay panel
         gameplayPanel.add(deckViewPanel);
-        gameplayPanel.revalidate();
-        gameplayPanel.repaint();
+        //gameplayPanel.revalidate();
+        //gameplayPanel.repaint();
     }
     
 

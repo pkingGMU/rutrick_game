@@ -43,6 +43,8 @@ public class Main {
         ui.updateHandView(randomHand, aHandler);
         ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
 
+        ui.deckViewPanel.setVisible(false);
+
         
 
 
@@ -99,7 +101,7 @@ public class Main {
                     
                     ui.updateHandView(randomHand, aHandler);
                     ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
-                    ui.updateFullCardView(deck.getDeck(), aHandler);
+                    
 
                     vm.printDeckState();
 
@@ -141,7 +143,8 @@ public class Main {
                     
                     ui.updateHandView(randomHand, aHandler);
                     ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
-                    ui.updateFullCardView(deck.getDeck(), aHandler);
+                   
+
 
                     
                     break;
@@ -163,7 +166,7 @@ public class Main {
                         
                         System.out.println("View Gameplay");
                         vm.showGamePlayArea();
-                        ui.updateFullCardView(deck.getDeck(), aHandler);
+                        
                         vm.printDeckState();
 
                         
@@ -190,7 +193,7 @@ public class Main {
 
                         ui.updateHandView(randomHand, aHandler);
                         ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
-                        ui.updateFullCardView(deck.getDeck(), aHandler);
+                        
 
 
 
