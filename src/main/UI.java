@@ -71,9 +71,7 @@ public class UI {
     // Normal Font
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
 
-    // Score stuff
-    PendingScoreManager pendingScore = new PendingScoreManager();
-
+    
     public void createUI(Main.GameActionListener aHandler) {
 
 
@@ -291,7 +289,7 @@ public class UI {
         potTotalLabel.setFont(scoreTotalFont);
 
         // Text that will display Total Score Value: 
-        potTotalValueLabel = new JLabel(pendingScore.getScoreString());
+        potTotalValueLabel = new JLabel("0");
         potTotalValueLabel.setBackground(Color.black);
         potTotalValueLabel.setForeground(Color.white);
         potTotalValueLabel.setFont(scoreTotalFont);

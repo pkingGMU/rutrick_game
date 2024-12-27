@@ -11,15 +11,23 @@ public class PendingScoreManager {
     private boolean shapeMatchCheck;
     private boolean fillMatchCheck;
 
+    private String color;
+    private String number;
+    private String shape;
+    private String fill;
+
+    private ArrayList<Card> cards;
 
 
 
 
 
 
-    public PendingScoreManager() {
+
+    public PendingScoreManager(ArrayList<Card> cards) {
         this.score = 0;
         this.money = 0;
+        this.cards = cards;
     }
 
    
@@ -65,31 +73,123 @@ public class PendingScoreManager {
 
     public void calculateScore() {
         if (this.colorMatchCheck) {
-            this.score += 10;
+
+            color = cards.get(0).getColor();
+
+            switch(color) {
+                case "Red": 
+                        this.score = 5;
+                    break;
+                case"Green":
+                        this.score = 10;
+                    break;
+                case "Blue": 
+                        this.score = 15;
+                    break;
+            }
+
+            
         }
         if (this.numberMatchCheck) {
-            this.score += 10;
+
+            number = cards.get(0).getNumber();
+
+            switch(number) {
+                case "1":
+                        this.score = 5;
+                    break;
+                case "2":
+                        this.score = 10;
+                    break;
+                case "3":
+                        this.score = 15;
+                    break;
+            }
+            
         }
         if (this.shapeMatchCheck) {
-            this.score += 10;
+
+            shape = cards.get(0).getShape();
+            
+            switch (shape) {
+                case "Circle":
+                    break;
+                case "Square":
+                    break;
+                case "Triangle":
+                    break;
+            }
         }
         if (this.fillMatchCheck) {
-            this.score += 10;
+
+            fill = cards.get(0).getShape();
+            
+            switch (fill) {
+                case "Solid":
+                    break;
+                case "Striped":
+                    break;
+                case "Empty":
+                    break;
+            }
         }
     }
 
     public void calculateMoney() {
         if (this.colorMatchCheck) {
-            this.money += 10;
+
+            color = cards.get(0).getColor();
+
+            switch(color) {
+                case "Red": 
+                    break;
+                case"Green":
+                    break;
+                case "Blue": 
+                    break;
+            }
+
+            
         }
         if (this.numberMatchCheck) {
-            this.money += 10;
+
+            number = cards.get(0).getNumber();
+
+            switch(number) {
+                case "1":
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    break;
+            }
+            
         }
         if (this.shapeMatchCheck) {
-            this.money += 10;
+
+            shape = cards.get(0).getShape();
+            
+            switch (shape) {
+                case "Circle":
+                    break;
+                case "Square":
+                    break;
+                case "Triangle":
+                    break;
+            }
         }
         if (this.fillMatchCheck) {
-            this.money += 10;
+
+            fill = cards.get(0).getShape();
+            
+            switch (fill) {
+                case "Solid":
+                    break;
+                case "Striped":
+                    break;
+                case "Empty":
+                    break;
+            }
         }
     }
 

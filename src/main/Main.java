@@ -14,7 +14,7 @@ public class Main {
     PlayerHand hand;
     PendingHand pendingHand;
     ArrayList<Card> randomHand;
-    PendingScoreManager pendingScoreManager = new PendingScoreManager();
+    PendingScoreManager pendingScoreManager;
     TotalScoreManager totalScoreManager = new TotalScoreManager();
     RoundManager roundManager = new RoundManager();
 
@@ -35,6 +35,7 @@ public class Main {
         deck = new PlayerDeck();
         hand = new PlayerHand();
         pendingHand = new PendingHand();
+        pendingScoreManager = new PendingScoreManager(pendingHand.getHand());
 
         randomHand = hand.createRandomHand(deck);
 
