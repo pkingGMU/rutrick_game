@@ -2,10 +2,10 @@ package main;
 
 public class RoundManager {
 
-    int round = 1;
-    int endround = 3;
-    int stage = 1;
-    int endStage = 3;
+    private int round = 1;
+    private int endround = 3;
+    private int stage = 1;
+    private int endStage = 3;
 
     public RoundManager() {
         this.round = 1;

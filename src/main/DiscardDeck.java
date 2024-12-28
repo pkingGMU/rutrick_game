@@ -8,6 +8,7 @@ public class DiscardDeck extends PlayerDeck {
 
     public DiscardDeck() {
         super();
+        this.discardDeck  = new ArrayList<>();
     }
 
     public void addCardsToDiscardDeck(ArrayList<Card> cards) {

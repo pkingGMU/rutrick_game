@@ -14,6 +14,7 @@ public class Main {
     ShopDeck shopDeck;
     PlayerHand hand;
     PendingHand pendingHand;
+    DiscardDeck discardDeck;
     ArrayList<Card> randomHand;
     ArrayList<Card> shopHand;
     PendingScoreManager pendingScoreManager;
@@ -38,6 +39,7 @@ public class Main {
         shopDeck = new ShopDeck();
         hand = new PlayerHand();
         pendingHand = new PendingHand();
+        discardDeck = new DiscardDeck();
         pendingScoreManager = new PendingScoreManager(pendingHand.getHand());
 
         randomHand = hand.createRandomHand(deck);
@@ -185,36 +187,45 @@ public class Main {
                         totalScoreManager.updateTotalMoney(pendingScoreManager.getMoneyInt());
                         totalScoreManager.printTotalMoney();
 
+                        discardDeck.addCardsToDiscardDeck(pendingHand.getHand());
+
                         pendingHand.clearHand();
                         pendingScoreManager.setCards(pendingHand.getHand());
                         pendingScoreManager.calculateScore();
                         pendingScoreManager.calculateMoney();
 
-                        hand.drawCard(deck);
-                        hand.drawCard(deck);
-                        hand.drawCard(deck);
-
-                        ui.updateHandView(randomHand, aHandler);
-                        ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
-                        
-
-
-
-                        ui.updateTotalScoreView(totalScoreManager.getTotalScoreString(), totalScoreManager.getTotalMoneyString());
 
                         // Update round
-                        if (roundManager.isEndRound()) {
+                        if (roundManager.isEndRound() && roundManager.isEndStage()) {
                             ui.updatePlayHandButton(aHandler);
                             
                         } else if (roundManager.isEndStage()) {
                             roundManager.nextRound();
                             roundManager.printRound();
                             roundManager.resetStage();
+
+                            deck.returnCardsFromDiscard(discardDeck.getDeck());
+                            discardDeck.removeAllCardsFromDiscardDeck();
                         } else {
                             roundManager.nextStage();
                         }
 
-                        // Show Store
+                        
+                        if (deck.getDeck().size() >= 3) {
+                            hand.drawCard(deck);
+                            hand.drawCard(deck);
+                            hand.drawCard(deck);
+                        } else if (deck.getDeck().size() == 2) {
+                            hand.drawCard(deck);
+                            hand.drawCard(deck);
+                        } else if (deck.getDeck().size() == 1) {
+                            hand.drawCard(deck);
+                        }
+
+                        ui.updateHandView(randomHand, aHandler);
+                        ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
+
+                        ui.updateTotalScoreView(totalScoreManager.getTotalScoreString(), totalScoreManager.getTotalMoneyString());
                         
                         
                         
