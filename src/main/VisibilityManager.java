@@ -23,7 +23,20 @@ public class VisibilityManager {
             ui.shopViewPanel.setVisible(false);
         }
 
+        // Disable the full deck view
+        ui.deckViewPanel.setVisible(false);
+
+        if (ui.shopViewPanel != null) {
+            // Disable the shop view
+            ui.shopViewPanel.setVisible(false);
+        }
+
         // Hide the game screen
+        ui.topMenuPanel.setVisible(false);
+        ui.bottomMenuPanel.setVisible(false);
+        ui.playingAreaPanel.setVisible(false);
+        ui.handViewPanel.setVisible(false);
+        ui.gameplayPanel.setVisible(false);
 
         ui.con.revalidate();
         ui.con.repaint();

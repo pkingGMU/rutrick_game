@@ -15,7 +15,7 @@ public class Main {
     PlayerHand hand;
     PendingHand pendingHand;
     DiscardDeck discardDeck;
-    ArrayList<Card> randomHand;
+    
     ArrayList<Card> shopHand;
     PendingScoreManager pendingScoreManager;
     TotalScoreManager totalScoreManager = new TotalScoreManager();
@@ -37,18 +37,18 @@ public class Main {
 
         deck = new PlayerDeck();
         shopDeck = new ShopDeck();
-        hand = new PlayerHand();
+        hand = new PlayerHand(deck);
         pendingHand = new PendingHand();
         discardDeck = new DiscardDeck();
         pendingScoreManager = new PendingScoreManager(pendingHand.getHand());
 
-        randomHand = hand.createRandomHand(deck);
+        
 
         shopHand = shopDeck.createShop();
 
         roundManager.printRound();
         
-        ui.updateHandView(randomHand, aHandler);
+        ui.updateHandView(hand.getHand(), aHandler);
         ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
 
         ui.deckViewPanel.setVisible(false);
@@ -107,7 +107,7 @@ public class Main {
                     System.out.println("Score: " + pendingScoreManager.getScoreString());
 
                     
-                    ui.updateHandView(randomHand, aHandler);
+                    ui.updateHandView(hand.getHand(), aHandler);
                     ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
                     
 
@@ -149,7 +149,7 @@ public class Main {
                     System.out.println("Score: " + pendingScoreManager.getScoreString());
 
                     
-                    ui.updateHandView(randomHand, aHandler);
+                    ui.updateHandView(hand.getHand(), aHandler);
                     ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
                    
 
@@ -198,6 +198,7 @@ public class Main {
                         // Update round
                         if (roundManager.isEndRound() && roundManager.isEndStage()) {
                             ui.updatePlayHandButton(aHandler);
+                            break;
                             
                         } else if (roundManager.isEndStage()) {
                             roundManager.nextRound();
@@ -205,7 +206,7 @@ public class Main {
                             roundManager.resetStage();
                             roundManager.printStage();
 
-                            deck.returnCardsFromDiscard(discardDeck.getDeck());
+                            deck.returnCardsFromDiscard(discardDeck.getDiscardDeck());
                             discardDeck.removeAllCardsFromDiscardDeck();
                         } else {
                             roundManager.nextStage();
@@ -217,9 +218,9 @@ public class Main {
                         if (deck.getDeck().size() >= 3 && roundManager.getStage() == 1 && roundManager.getRound() != 1) {
                             cardsToBeDrawn =  hand.getHandSize() - hand.getHand().size();
                         } else if (deck.getDeck().size() >= 3) {
-                            cardsToBeDrawn = 3;
+                            cardsToBeDrawn = hand.getHandSize() - hand.getHand().size();
                         } else if (deck.getDeck().size() == 2) {
-                            cardsToBeDrawn = 2;
+                            cardsToBeDrawn = hand.getHandSize() - hand.getHand().size() - 1;
                         } else if (deck.getDeck().size() == 1) {
                             cardsToBeDrawn = 1;
                         }
@@ -228,7 +229,7 @@ public class Main {
                             hand.drawCard(deck);
                         }
 
-                        ui.updateHandView(randomHand, aHandler);
+                        ui.updateHandView(hand.getHand(), aHandler);
                         ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
 
                         ui.updateTotalScoreView(totalScoreManager.getTotalScoreString(), totalScoreManager.getTotalMoneyString());
@@ -246,8 +247,19 @@ public class Main {
 
                 case "endRound":
 
-                    deck.returnCardsFromDiscard(discardDeck.getDeck());
+                    deck.returnCardsFromDiscard(discardDeck.getDiscardDeck());
                     discardDeck.removeAllCardsFromDiscardDeck();
+
+                    System.err.println("DISCARD DECK AFTER END ROUND");
+                    discardDeck.printDeck();
+
+                    deck.returnCardsFromHand(hand.getHand());
+                    hand.removeAllCards();
+
+                    if (roundManager.isEndSegment()) {
+                        vm.showTitleScreen();
+                        break;
+                    }
 
                     ui.updateShopView(shopHand, aHandler);
                 
@@ -264,17 +276,15 @@ public class Main {
                         break;
                     }
 
-                    System.out.println("Before Removal");
-                    System.out.println(hand.getHand());
+                    
 
-                    hand.removeAllCards();
+                    System.err.println("DISCARD DECK AFTER NEXT ROUND");
 
-                    System.out.println("After Removal");
-                    System.out.println(hand.getHand());
+                    discardDeck.removeAllCardsFromDiscardDeck();
+                    
+                    discardDeck.printDeck();
 
-
-
-                    int cardsToBeDrawn = 5;
+                    int cardsToBeDrawn = hand.getHandSize();
 
                     for (int i = 0; i < cardsToBeDrawn; i++) {
                         hand.drawCard(deck);
@@ -287,13 +297,8 @@ public class Main {
                     vm.showGamePlayArea();
 
                     
-                    shopHand.clear();
-
-                    
-                    shopHand = shopDeck.createShop();
-                    
                     ui.updateNextRoundButton(aHandler);
-                    ui.updateHandView(randomHand, aHandler);
+                    ui.updateHandView(hand.getHand(), aHandler);
                     ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
 
 

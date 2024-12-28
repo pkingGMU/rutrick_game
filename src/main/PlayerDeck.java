@@ -33,14 +33,15 @@ public class PlayerDeck {
         //}
 
         
-        deck.add(new Card("Red","1","Square","Solid"));
-        deck.add(new Card("Green","1","Square","Solid"));
+        
         deck.add(new Card("Blue","1","Square","Solid"));
         deck.add(new Card("Blue","1","Square","Solid"));
         deck.add(new Card("Blue","1","Square","Solid"));
         deck.add(new Card("Blue","1","Square","Solid"));
         deck.add(new Card("Blue","1","Square","Solid"));
         deck.add(new Card("Blue","1","Square","Solid"));
+        
+        
         
         
         
@@ -66,6 +67,12 @@ public class PlayerDeck {
 
     public void returnCardsFromDiscard(ArrayList<Card> discardCards) {
         for (Card card : discardCards) {
+            this.deck.add(card);
+        }
+    }
+
+    public void returnCardsFromHand(ArrayList<Card> handCards) {
+        for (Card card : handCards) {
             this.deck.add(card);
         }
     }

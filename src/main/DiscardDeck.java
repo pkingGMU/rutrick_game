@@ -2,12 +2,11 @@ package main;
 
 import java.util.ArrayList;
 
-public class DiscardDeck extends PlayerDeck {
+public class DiscardDeck {
 
     private ArrayList<Card> discardDeck;
 
     public DiscardDeck() {
-        super();
         this.discardDeck  = new ArrayList<>();
     }
 
@@ -16,11 +15,15 @@ public class DiscardDeck extends PlayerDeck {
     }
 
     public ArrayList<Card> getDiscardDeck() {
-        return discardDeck;
+        return this.discardDeck;
     }
 
     public void removeAllCardsFromDiscardDeck() {
-        discardDeck.clear();
+        this.discardDeck.clear();
+    }
+
+    public void printDeck() {
+        System.out.println(this.getDiscardDeck());
     }
     
 }
