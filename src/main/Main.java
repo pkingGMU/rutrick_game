@@ -203,22 +203,28 @@ public class Main {
                             roundManager.nextRound();
                             roundManager.printRound();
                             roundManager.resetStage();
+                            roundManager.printStage();
 
                             deck.returnCardsFromDiscard(discardDeck.getDeck());
                             discardDeck.removeAllCardsFromDiscardDeck();
                         } else {
                             roundManager.nextStage();
+                            roundManager.printStage();
                         }
 
+                        int cardsToBeDrawn = 0;
                         
-                        if (deck.getDeck().size() >= 3) {
-                            hand.drawCard(deck);
-                            hand.drawCard(deck);
-                            hand.drawCard(deck);
+                        if (deck.getDeck().size() >= 3 && roundManager.getStage() == 1 && roundManager.getRound() != 1) {
+                            cardsToBeDrawn = 5;
+                        } else if (deck.getDeck().size() >= 3) {
+                            cardsToBeDrawn = 3;
                         } else if (deck.getDeck().size() == 2) {
-                            hand.drawCard(deck);
-                            hand.drawCard(deck);
+                            cardsToBeDrawn = 2;
                         } else if (deck.getDeck().size() == 1) {
+                            cardsToBeDrawn = 1;
+                        }
+
+                        for (int i = 0; i < cardsToBeDrawn; i++) {
                             hand.drawCard(deck);
                         }
 
@@ -239,6 +245,10 @@ public class Main {
                     break;
 
                 case "endRound":
+
+                    deck.returnCardsFromDiscard(discardDeck.getDeck());
+                    discardDeck.removeAllCardsFromDiscardDeck();
+
                     ui.updateShopView(shopHand, aHandler);
                 
                     vm.showShopScreen();

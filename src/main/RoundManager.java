@@ -33,11 +33,15 @@ public class RoundManager {
     }
 
     public void resetStage() {
-        this.stage = 0;
+        this.stage = 1;
     }
 
     public int getStage() {
         return this.stage;
+    }
+
+    public void printStage() {
+        System.out.println("Stage: " + this.stage);
     }
 
     public boolean isEndStage() {
