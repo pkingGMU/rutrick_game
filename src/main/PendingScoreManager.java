@@ -226,6 +226,8 @@ public class PendingScoreManager {
         }
     }
 
+    
+
     public int getScoreInt() {
         return this.score;
     }

@@ -41,11 +41,7 @@ public class PlayerDeck {
         deck.add(new Card("Blue","1","Square","Solid"));
         deck.add(new Card("Blue","1","Square","Solid"));
         deck.add(new Card("Blue","1","Square","Solid"));
-        deck.add(new Card("Blue","1","Square","Solid"));
-        deck.add(new Card("Blue","1","Square","Solid"));
-        deck.add(new Card("Blue","1","Square","Solid"));
-        deck.add(new Card("Blue","1","Square","Solid"));
-        deck.add(new Card("Blue","1","Square","Solid"));
+        
         
         
         
@@ -66,6 +62,16 @@ public class PlayerDeck {
             return deck.remove(0);
         }
         return null; // No cards left
+    }
+
+    public void returnCardsFromDiscard(ArrayList<Card> discardCards) {
+        for (Card card : discardCards) {
+            this.deck.add(card);
+        }
+    }
+
+    public void addCard(Card card) {
+        this.deck.add(card);
     }
 
     public int getDeckSize() {

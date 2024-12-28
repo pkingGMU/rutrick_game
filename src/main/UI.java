@@ -62,6 +62,8 @@ public class UI {
 
     JPanel deckViewPanel;
 
+    JPanel shopViewPanel;
+
     // Title Text Font
     Font titleFont = new Font("Times New Roman", Font.PLAIN,90);
     // Start button panel
@@ -343,8 +345,9 @@ public class UI {
         playHandButton.addActionListener(aHandler);
         playHandButton.setActionCommand("playHand");
 
-        bottomMiddle.add(playHandButton);
+        
         bottomMiddle.add(viewDeckButton);
+        bottomMiddle.add(playHandButton);
         bottomMenuPanel.add(bottomMiddle);
 
         // Bottom Right Panel
@@ -529,6 +532,84 @@ public class UI {
         //gameplayPanel.repaint();
     }
     
+    public void updateShopView (ArrayList<Card> shopDeck, Main.GameActionListener aHandler) {
+        if (shopViewPanel != null) {
+            gameplayPanel.remove(shopViewPanel); // Remove the old panel
+        }
+
+        // Create space
+        CreateObjectSpace shopViewSpace = new CreateObjectSpace(gameplayPanel, 1, .9, 0, 0);
+        shopViewPanel = new ShopDisplay(shopDeck, shopViewSpace, aHandler);
+
+        
+
+        gameplayPanel.add(shopViewPanel);
+    }
+
+    public void updatePlayHandButton(Main.GameActionListener aHandler) {
+        if (playHandButton != null) {
+            bottomMiddle.remove(playHandButton);
+        }
+
+        // Play hand button
+        playHandButton = new JButton("End round");
+        playHandButton.setBackground(Color.black);
+        //viewDeckButton.setForeground(Color.white);
+        playHandButton.setFont(normalFont);
+
+        // Button action handler
+        playHandButton.addActionListener(aHandler);
+        playHandButton.setActionCommand("endRound");
+
+        bottomMiddle.add(playHandButton);
+        
+        bottomMiddle.revalidate();
+        bottomMiddle.repaint();
+    }
+
+    public void updateEndRoundButton(Main.GameActionListener aHandler) {
+        if (playHandButton != null) {
+            bottomMiddle.remove(playHandButton);
+        }
+
+        // Play hand button
+        playHandButton = new JButton("Next round");
+        playHandButton.setBackground(Color.black);
+        //viewDeckButton.setForeground(Color.white);
+        playHandButton.setFont(normalFont);
+
+        // Button action handler
+        playHandButton.addActionListener(aHandler);
+        playHandButton.setActionCommand("nextRound");
+
+        bottomMiddle.add(playHandButton);
+        
+        bottomMiddle.revalidate();
+        bottomMiddle.repaint();
+    }
+
+    public void updateNextRoundButton(Main.GameActionListener aHandler) {
+        if (playHandButton != null) {
+            bottomMiddle.remove(playHandButton);
+        }
+
+        // Play hand button
+        playHandButton = new JButton("Play Hand");
+        playHandButton.setBackground(Color.black);
+        //viewDeckButton.setForeground(Color.white);
+        playHandButton.setFont(normalFont);
+
+        // Button action handler
+        playHandButton.addActionListener(aHandler);
+        playHandButton.setActionCommand("playHand");
+
+        bottomMiddle.add(playHandButton);
+        
+        bottomMiddle.revalidate();
+        bottomMiddle.repaint();
+
+
+    }
 
 
 }

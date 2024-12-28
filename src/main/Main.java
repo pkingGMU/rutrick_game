@@ -11,9 +11,12 @@ public class Main {
     UI ui = new UI();
     VisibilityManager vm = new VisibilityManager(ui);
     PlayerDeck deck;
+    ShopDeck shopDeck;
     PlayerHand hand;
     PendingHand pendingHand;
+    DiscardDeck discardDeck;
     ArrayList<Card> randomHand;
+    ArrayList<Card> shopHand;
     PendingScoreManager pendingScoreManager;
     TotalScoreManager totalScoreManager = new TotalScoreManager();
     RoundManager roundManager = new RoundManager();
@@ -33,11 +36,15 @@ public class Main {
         vm.showTitleScreen();
 
         deck = new PlayerDeck();
+        shopDeck = new ShopDeck();
         hand = new PlayerHand();
         pendingHand = new PendingHand();
+        discardDeck = new DiscardDeck();
         pendingScoreManager = new PendingScoreManager(pendingHand.getHand());
 
         randomHand = hand.createRandomHand(deck);
+
+        shopHand = shopDeck.createShop();
 
         roundManager.printRound();
         
@@ -158,18 +165,15 @@ public class Main {
                         ui.updateFullCardView(deck.getDeck(), aHandler);
                         vm.printDeckState();
 
-
-
-                        
-
-
-                    } else {
+                    } else if (!vm.viewShopState) {
                         
                         System.out.println("View Gameplay");
                         vm.showGamePlayArea();
                         
                         vm.printDeckState();
-
+                    } else {
+                        System.out.println("View Shop");
+                        vm.showShopScreen();
                         
                     }
                     break;
@@ -183,38 +187,151 @@ public class Main {
                         totalScoreManager.updateTotalMoney(pendingScoreManager.getMoneyInt());
                         totalScoreManager.printTotalMoney();
 
+                        discardDeck.addCardsToDiscardDeck(pendingHand.getHand());
+
                         pendingHand.clearHand();
                         pendingScoreManager.setCards(pendingHand.getHand());
                         pendingScoreManager.calculateScore();
                         pendingScoreManager.calculateMoney();
 
-                        hand.drawCard(deck);
-                        hand.drawCard(deck);
-                        hand.drawCard(deck);
+
+                        // Update round
+                        if (roundManager.isEndRound() && roundManager.isEndStage()) {
+                            ui.updatePlayHandButton(aHandler);
+                            
+                        } else if (roundManager.isEndStage()) {
+                            roundManager.nextRound();
+                            roundManager.printRound();
+                            roundManager.resetStage();
+                            roundManager.printStage();
+
+                            deck.returnCardsFromDiscard(discardDeck.getDeck());
+                            discardDeck.removeAllCardsFromDiscardDeck();
+                        } else {
+                            roundManager.nextStage();
+                            roundManager.printStage();
+                        }
+
+                        int cardsToBeDrawn = 0;
+                        
+                        if (deck.getDeck().size() >= 3 && roundManager.getStage() == 1 && roundManager.getRound() != 1) {
+                            cardsToBeDrawn =  hand.getHandSize() - hand.getHand().size();
+                        } else if (deck.getDeck().size() >= 3) {
+                            cardsToBeDrawn = 3;
+                        } else if (deck.getDeck().size() == 2) {
+                            cardsToBeDrawn = 2;
+                        } else if (deck.getDeck().size() == 1) {
+                            cardsToBeDrawn = 1;
+                        }
+
+                        for (int i = 0; i < cardsToBeDrawn; i++) {
+                            hand.drawCard(deck);
+                        }
 
                         ui.updateHandView(randomHand, aHandler);
                         ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
-                        
-
-
 
                         ui.updateTotalScoreView(totalScoreManager.getTotalScoreString(), totalScoreManager.getTotalMoneyString());
-
-                        // Update round
-                        if (roundManager.isEndRound()) {
-                            System.out.println("End Round");
-                            vm.showEndScreen();
-                            
-                        } else {
-                            roundManager.nextRound();
-                            roundManager.printRound();
-                        }
+                        
                         
                         
                         
                     } else {
                         System.out.println("Hand is not full");
                     }
+
+                    
+
+                    break;
+
+                case "endRound":
+
+                    deck.returnCardsFromDiscard(discardDeck.getDeck());
+                    discardDeck.removeAllCardsFromDiscardDeck();
+
+                    ui.updateShopView(shopHand, aHandler);
+                
+                    vm.showShopScreen();
+
+                    ui.updateEndRoundButton(aHandler);
+                    
+                    break;
+                
+                case "nextRound":
+
+                    if (roundManager.isEndSegment()) {
+                        System.out.println("Game over");
+                        break;
+                    }
+
+                    System.out.println("Before Removal");
+                    System.out.println(hand.getHand());
+
+                    hand.removeAllCards();
+
+                    System.out.println("After Removal");
+                    System.out.println(hand.getHand());
+
+
+
+                    int cardsToBeDrawn = 5;
+
+                    for (int i = 0; i < cardsToBeDrawn; i++) {
+                        hand.drawCard(deck);
+                    }
+
+                    roundManager.resetRound();
+                    roundManager.resetStage();
+                    roundManager.nextSegment();
+
+                    vm.showGamePlayArea();
+
+                    
+                    shopHand.clear();
+
+                    
+                    shopHand = shopDeck.createShop();
+                    
+                    ui.updateNextRoundButton(aHandler);
+                    ui.updateHandView(randomHand, aHandler);
+                    ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
+
+
+
+                    ui.deckViewPanel.setVisible(false);
+
+                    break;
+                
+                case "buyCard":
+                    System.out.println("Buy Card");
+                    Card clickedCard3 = null;
+
+                    
+
+
+                    // Get the info of the card that was clicked
+                    JButton sourceButton3 = (JButton) event.getSource();
+
+                    if (sourceButton3 instanceof CardButton) {
+                        // Cast to CardButton and get the associated Card
+                        CardButton cardButton3 = (CardButton) sourceButton3;
+                        clickedCard3 = cardButton3.getCard();
+                        
+                        // Now you can use the Card object for whatever you need
+                        System.out.println("Card clicked: " + clickedCard3);
+                        
+                        
+                    }
+                    
+                    if (clickedCard3.getCardCost() > totalScoreManager.getTotalMoney()) {
+                        break;
+                    }
+                    
+                    deck.addCard(clickedCard3);
+                    totalScoreManager.subtractMoney(clickedCard3.getCardCost());
+                    ui.updateTotalScoreView(totalScoreManager.getTotalScoreString(), totalScoreManager.getTotalMoneyString());
+
+
                     break;
 
                     

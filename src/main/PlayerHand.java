@@ -8,10 +8,12 @@ public class PlayerHand {
     private ArrayList<Card> hand;
     private int handSize;
     
+    
 
     public PlayerHand() {
         this.handSize = 5;
         this.hand = new ArrayList<>();
+        
 
 
     }
@@ -53,6 +55,10 @@ public class PlayerHand {
         return hand;
     }
 
+    public void removeAllCards() {
+        hand.clear();
+    }
+
     // Get the current hand
     public ArrayList<Card> getHand() {
         return hand;
@@ -71,6 +77,11 @@ public class PlayerHand {
     // Set hand size
     public void setHandSize(int newSize) {
         this.handSize = newSize;
+    }
+
+    // Get hand size
+    public int getHandSize() {
+        return this.handSize;
     }
     
 }
