@@ -215,7 +215,7 @@ public class Main {
                         int cardsToBeDrawn = 0;
                         
                         if (deck.getDeck().size() >= 3 && roundManager.getStage() == 1 && roundManager.getRound() != 1) {
-                            cardsToBeDrawn = 5;
+                            cardsToBeDrawn =  hand.getHandSize() - hand.getHand().size();
                         } else if (deck.getDeck().size() >= 3) {
                             cardsToBeDrawn = 3;
                         } else if (deck.getDeck().size() == 2) {
@@ -258,10 +258,80 @@ public class Main {
                     break;
                 
                 case "nextRound":
+
+                    if (roundManager.isEndSegment()) {
+                        System.out.println("Game over");
+                        break;
+                    }
+
+                    System.out.println("Before Removal");
+                    System.out.println(hand.getHand());
+
+                    hand.removeAllCards();
+
+                    System.out.println("After Removal");
+                    System.out.println(hand.getHand());
+
+
+
+                    int cardsToBeDrawn = 5;
+
+                    for (int i = 0; i < cardsToBeDrawn; i++) {
+                        hand.drawCard(deck);
+                    }
+
+                    roundManager.resetRound();
+                    roundManager.resetStage();
+                    roundManager.nextSegment();
+
+                    vm.showGamePlayArea();
+
                     
+                    shopHand.clear();
+
+                    
+                    shopHand = shopDeck.createShop();
+                    
+                    ui.updateNextRoundButton(aHandler);
+                    ui.updateHandView(randomHand, aHandler);
+                    ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
+
+
+
+                    ui.deckViewPanel.setVisible(false);
+
+                    break;
                 
                 case "buyCard":
                     System.out.println("Buy Card");
+                    Card clickedCard3 = null;
+
+                    
+
+
+                    // Get the info of the card that was clicked
+                    JButton sourceButton3 = (JButton) event.getSource();
+
+                    if (sourceButton3 instanceof CardButton) {
+                        // Cast to CardButton and get the associated Card
+                        CardButton cardButton3 = (CardButton) sourceButton3;
+                        clickedCard3 = cardButton3.getCard();
+                        
+                        // Now you can use the Card object for whatever you need
+                        System.out.println("Card clicked: " + clickedCard3);
+                        
+                        
+                    }
+                    
+                    if (clickedCard3.getCardCost() > totalScoreManager.getTotalMoney()) {
+                        break;
+                    }
+                    
+                    deck.addCard(clickedCard3);
+                    totalScoreManager.subtractMoney(clickedCard3.getCardCost());
+                    ui.updateTotalScoreView(totalScoreManager.getTotalScoreString(), totalScoreManager.getTotalMoneyString());
+
+
                     break;
 
                     

@@ -41,7 +41,7 @@ public class PlayerDeck {
         deck.add(new Card("Blue","1","Square","Solid"));
         deck.add(new Card("Blue","1","Square","Solid"));
         deck.add(new Card("Blue","1","Square","Solid"));
-        deck.add(new Card("Blue","1","Square","Solid"));
+        
         
         
         
@@ -68,6 +68,10 @@ public class PlayerDeck {
         for (Card card : discardCards) {
             this.deck.add(card);
         }
+    }
+
+    public void addCard(Card card) {
+        this.deck.add(card);
     }
 
     public int getDeckSize() {

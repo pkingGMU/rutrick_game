@@ -3,9 +3,11 @@ package main;
 public class RoundManager {
 
     private int round = 1;
-    private int endround = 3;
+    private int endround = 2;
     private int stage = 1;
-    private int endStage = 3;
+    private int endStage = 2;
+    private int segment = 1;
+    private int endSegment = 3;
 
     public RoundManager() {
         this.round = 1;
@@ -18,6 +20,10 @@ public class RoundManager {
 
     public int getRound() {
         return this.round;
+    }
+
+    public void resetRound() {
+        this.round = 1;
     }
 
     public boolean isEndRound() {
@@ -47,5 +53,20 @@ public class RoundManager {
     public boolean isEndStage() {
         return this.stage == this.endStage;
     }
+
+    public void resetSegment() {
+        this.segment = 1;
+    }
     
+    public void nextSegment() {
+        this.segment += 1;
+    }
+
+    public int getSegment() {
+        return this.segment;
+    }
+
+    public boolean isEndSegment() {
+        return this.segment == this.endSegment;
+    }
 }

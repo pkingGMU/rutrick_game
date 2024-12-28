@@ -34,6 +34,10 @@ public class TotalScoreManager {
         this.totalMoney += money;
     }
 
+    public void subtractMoney(int money) {
+        this.totalMoney -= money;
+    }
+
     public int getTotalMoney() {
         return totalMoney;
     }

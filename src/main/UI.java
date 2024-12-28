@@ -345,8 +345,9 @@ public class UI {
         playHandButton.addActionListener(aHandler);
         playHandButton.setActionCommand("playHand");
 
-        bottomMiddle.add(playHandButton);
+        
         bottomMiddle.add(viewDeckButton);
+        bottomMiddle.add(playHandButton);
         bottomMenuPanel.add(bottomMiddle);
 
         // Bottom Right Panel
@@ -585,6 +586,29 @@ public class UI {
         
         bottomMiddle.revalidate();
         bottomMiddle.repaint();
+    }
+
+    public void updateNextRoundButton(Main.GameActionListener aHandler) {
+        if (playHandButton != null) {
+            bottomMiddle.remove(playHandButton);
+        }
+
+        // Play hand button
+        playHandButton = new JButton("Play Hand");
+        playHandButton.setBackground(Color.black);
+        //viewDeckButton.setForeground(Color.white);
+        playHandButton.setFont(normalFont);
+
+        // Button action handler
+        playHandButton.addActionListener(aHandler);
+        playHandButton.setActionCommand("playHand");
+
+        bottomMiddle.add(playHandButton);
+        
+        bottomMiddle.revalidate();
+        bottomMiddle.repaint();
+
+
     }
 
 
