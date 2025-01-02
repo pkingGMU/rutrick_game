@@ -19,7 +19,7 @@ public class CardDisplay extends JPanel{
         handViewSpace.applyBounds(this);
 
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        this.setBackground(Color.orange);
+        this.setBackground(Color.darkGray);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 

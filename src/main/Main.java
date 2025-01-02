@@ -9,7 +9,7 @@ public class Main {
 
     GameActionListener aHandler = new GameActionListener();
     UI ui = new UI();
-    VisibilityManager vm = new VisibilityManager(ui);
+    VisibilityManager vm;
     PlayerDeck deck;
     ShopDeck shopDeck;
     PlayerHand hand;
@@ -18,8 +18,8 @@ public class Main {
     
     ArrayList<Card> shopHand;
     PendingScoreManager pendingScoreManager;
-    TotalScoreManager totalScoreManager = new TotalScoreManager();
-    RoundManager roundManager = new RoundManager();
+    TotalScoreManager totalScoreManager;
+    RoundManager roundManager;
 
     public static void main(String[] args) {
         System.out.println("Hello, World!");
@@ -32,30 +32,9 @@ public class Main {
 
     public Main() {
 
+        vm = new VisibilityManager(ui);
         ui.createUI(aHandler);
         vm.showTitleScreen();
-
-        deck = new PlayerDeck();
-        shopDeck = new ShopDeck();
-        hand = new PlayerHand(deck);
-        pendingHand = new PendingHand();
-        discardDeck = new DiscardDeck();
-        pendingScoreManager = new PendingScoreManager(pendingHand.getHand());
-
-        
-
-        shopHand = shopDeck.createShop();
-
-        roundManager.printRound();
-        
-        ui.updateHandView(hand.getHand(), aHandler);
-        ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
-
-        ui.deckViewPanel.setVisible(false);
-
-        
-
-
     }
 
     public class GameActionListener implements ActionListener {
@@ -69,6 +48,43 @@ public class Main {
             switch(choice){
                 case "start": 
                     vm.showGamePlayArea();
+
+                    // Create deck
+                    deck = new PlayerDeck();
+
+                    // Create new shop deck
+                    shopDeck = new ShopDeck();
+
+                    // Create new player hand
+                    hand = new PlayerHand(deck);
+
+                    // Create new pending hand
+                    pendingHand = new PendingHand();
+
+                    // Create new discard deck
+                    discardDeck = new DiscardDeck();
+
+                    // Create new pending score manager
+                    pendingScoreManager = new PendingScoreManager(pendingHand.getHand());
+
+                    totalScoreManager = new TotalScoreManager();
+
+                    roundManager = new RoundManager();
+
+                    shopHand = shopDeck.createShop();
+
+                    roundManager.printRound();
+
+                    // Update hand, round, and segment counters
+
+                    ui.updateCounters(aHandler, roundManager.getStage(), roundManager.getRound(), roundManager.getSegment());
+                    ui.updateTotalScoreView(totalScoreManager.getTotalScoreString(), totalScoreManager.getTotalMoneyString());
+                    ui.updateTotalScoreView("0", "0");
+                    ui.updateHandView(hand.getHand(), aHandler);
+                    ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
+
+                    ui.deckViewPanel.setVisible(false);
+
                     break;
                 case "handCardClick": 
                     vm.printDeckState();
@@ -261,6 +277,24 @@ public class Main {
                     hand.removeAllCards();
 
                     if (roundManager.isEndSegment()) {
+
+                        deck = null;
+
+                        roundManager.resetStage();
+                        roundManager.resetRound();
+                        roundManager.resetSegment();
+
+                        pendingScoreManager.resetAll();
+
+                        pendingHand.clearHand();
+
+                        shopHand = null;
+
+                        
+                        ui.updateNextRoundButton(aHandler);
+
+                        System.gc();
+
                         vm.showTitleScreen();
                         break;
                     }
@@ -270,6 +304,7 @@ public class Main {
                     vm.showShopScreen();
 
                     ui.updateEndRoundButton(aHandler);
+                    
                     
                     break;
                 

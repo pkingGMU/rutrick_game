@@ -113,7 +113,7 @@ public class UI {
 
         // Add Title text to title panel
         titleNameLable = new JLabel();
-        titleNameLable.setText("Rutrick");
+        titleNameLable.setText("SET");
         titleNameLable.setForeground(Color.white);
 
         // Center contents
@@ -215,7 +215,7 @@ public class UI {
         // Text that will display Total Money Value: 
         moneyTotalValueLabel = new JLabel("0");
         moneyTotalValueLabel.setBackground(Color.black);
-        moneyTotalValueLabel.setForeground(Color.yellow);
+        moneyTotalValueLabel.setForeground(Color.lightGray);
         moneyTotalValueLabel.setFont(scoreTotalFont);
 
         topLeft.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 40));
@@ -239,8 +239,8 @@ public class UI {
         // Use GridBagLayout for centering
         topMiddle.setLayout(new GridBagLayout());
 
-        // Text that will display Rutrick
-        gameTitelLabel = new JLabel("Rutrick");
+        // Text that will display SET
+        gameTitelLabel = new JLabel("SET");
         gameTitelLabel.setBackground(Color.black);
         gameTitelLabel.setForeground(Color.white);
         gameTitelLabel.setFont(gameTitleFont);
@@ -380,7 +380,7 @@ public class UI {
         CreateObjectSpace bottomRightSpace = new CreateObjectSpace(bottomMenuPanel, .33, 1, .67, 0);
         bottomRight = new JPanel();
         bottomRightSpace.applyBounds(bottomRight);
-        bottomRight.setBackground(Color.blue);
+        bottomRight.setBackground(Color.black);
         bottomRight.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         bottomMenuPanel.add(bottomRight);
@@ -418,8 +418,8 @@ public class UI {
         CreateObjectSpace handViewSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, .5);
         handViewPanel = new JPanel();
         handViewSpace.applyBounds(handViewPanel);
-        handViewPanel.setBackground(Color.orange);
-        handViewPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+        handViewPanel.setBackground(Color.lightGray);
+        handViewPanel.setBorder(BorderFactory.createLineBorder(Color.lightGray));
         handViewPanel.setVisible(false);
     
         gameplayPanel.add(handViewPanel);
@@ -492,7 +492,7 @@ public class UI {
         // Text that will display Money Score Value: 
         potMoneyValueLabel = new JLabel(money);
         potMoneyValueLabel.setBackground(Color.black);
-        potMoneyValueLabel.setForeground(Color.yellow);
+        potMoneyValueLabel.setForeground(Color.lightGray);
         potMoneyValueLabel.setFont(scoreTotalFont);
 
         
@@ -529,7 +529,7 @@ public class UI {
         // Text that will display Total Score Value: 
         moneyTotalValueLabel = new JLabel(money);
         moneyTotalValueLabel.setBackground(Color.black);
-        moneyTotalValueLabel.setForeground(Color.yellow);
+        moneyTotalValueLabel.setForeground(Color.lightGray);
         moneyTotalValueLabel.setFont(scoreTotalFont);
 
         topLeft.add(moneyTotalLabel);

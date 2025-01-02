@@ -7,7 +7,7 @@ public class RoundManager {
     private int stage = 1;
     private int endStage = 2;
     private int segment = 1;
-    private int endSegment = 3;
+    private int endSegment = 1;
 
     public RoundManager() {
         this.round = 1;

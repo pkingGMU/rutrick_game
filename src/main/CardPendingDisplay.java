@@ -13,7 +13,7 @@ public class CardPendingDisplay extends JPanel{
         pendingViewSpace.applyBounds(this);
 
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        this.setBackground(Color.orange);
+        this.setBackground(Color.lightGray);
 
 
         

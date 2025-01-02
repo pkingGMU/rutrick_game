@@ -251,4 +251,9 @@ public class PendingScoreManager {
     public void printMoney() {
         System.out.println("Money: " + this.money);
     }
+
+    public void resetAll() {
+        this.money = 0;
+        this.score = 0;
+    }
 }
