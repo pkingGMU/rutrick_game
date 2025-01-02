@@ -241,6 +241,10 @@ public class Main {
                         System.out.println("Hand is not full");
                     }
 
+                    // Update hand, round, and segment counters
+
+                    ui.updateCounters(aHandler, roundManager.getStage(), roundManager.getRound(), roundManager.getSegment());
+
                     
 
                     break;
@@ -293,6 +297,8 @@ public class Main {
                     roundManager.resetRound();
                     roundManager.resetStage();
                     roundManager.nextSegment();
+
+                    ui.updateCounters(aHandler, roundManager.getStage(), roundManager.getRound(), roundManager.getSegment());
 
                     vm.showGamePlayArea();
 

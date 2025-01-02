@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,6 +39,10 @@ public class UI {
     Font gameTitleFont = new Font("Times New Roman", Font.PLAIN,70);
 
     JPanel topRight;
+    JLabel handCounter;
+    JLabel roundCounter;
+    JLabel segmentCounter;
+    Font counterFont = new Font("Times New Roman", Font.PLAIN,25);
     // Bottom Menu
     JPanel bottomMenuPanel;
 
@@ -249,9 +254,29 @@ public class UI {
         CreateObjectSpace topRightSpace = new CreateObjectSpace(topMenuPanel, .33, 1, .67, 0);
         topRight = new JPanel();
         topRightSpace.applyBounds(topRight);
-        topRight.setBackground(Color.blue);
+        topRight.setBackground(Color.BLACK);
         topRight.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        topRight.setLayout(new BoxLayout(topRight, BoxLayout.Y_AXIS));
 
+        handCounter = new JLabel("Hand: 1");
+        handCounter.setFont(counterFont);
+        handCounter.setBackground(Color.black);
+        handCounter.setForeground(Color.white);
+
+        roundCounter = new JLabel("Round: 1");
+        roundCounter.setFont(counterFont);
+        roundCounter.setBackground(Color.black);
+        roundCounter.setForeground(Color.white);
+
+        segmentCounter = new JLabel("Segment: 1");
+        segmentCounter.setFont(counterFont);
+        segmentCounter.setBackground(Color.black);
+        segmentCounter.setForeground(Color.white);
+
+        
+        topRight.add(handCounter);
+        topRight.add(roundCounter);
+        topRight.add(segmentCounter);
         topMenuPanel.add(topRight);
         
 
@@ -607,6 +632,46 @@ public class UI {
         
         bottomMiddle.revalidate();
         bottomMiddle.repaint();
+
+
+    }
+
+    public void updateCounters (Main.GameActionListener aHandler, int hand, int round, int segment) {
+        if (handCounter != null) {
+            topRight.remove(handCounter);
+        } 
+
+        if (roundCounter != null) {
+            topRight.remove(roundCounter);
+        } 
+
+        if (segmentCounter != null) {
+            topRight.remove(segmentCounter);
+        } 
+
+        handCounter = new JLabel("Hand: " + hand);
+        handCounter.setFont(counterFont);
+        handCounter.setBackground(Color.black);
+        handCounter.setForeground(Color.white);
+
+        roundCounter = new JLabel("Round: " + round);
+        roundCounter.setFont(counterFont);
+        roundCounter.setBackground(Color.black);
+        roundCounter.setForeground(Color.white);
+
+        segmentCounter = new JLabel("Segment: " + segment);
+        segmentCounter.setFont(counterFont);
+        segmentCounter.setBackground(Color.black);
+        segmentCounter.setForeground(Color.white);
+
+        
+        topRight.add(handCounter);
+        topRight.add(roundCounter);
+        topRight.add(segmentCounter);
+
+        topRight.repaint();
+        topRight.revalidate();
+
 
 
     }
