@@ -10,25 +10,25 @@ public class PlayerHand {
     
     
 
-    public PlayerHand() {
-        this.handSize = 5;
+    public PlayerHand(PlayerDeck deck) {
+        this.handSize = 4;
         this.hand = new ArrayList<>();
         
-
+        createRandomHand(deck);
 
     }
 
-    public ArrayList<Card> createRandomHand(PlayerDeck deck) {
+    public void createRandomHand(PlayerDeck deck) {
         
         hand.clear();
 
         Collections.shuffle(deck.getDeck());
 
         for (int i = 0; i < handSize && deck.getDeckSize() > 0; i++) {
-            hand.add(deck.drawCard());
+            this.hand.add(deck.drawCard());
         }
 
-        return hand;
+        
 
     }
 
@@ -56,7 +56,7 @@ public class PlayerHand {
     }
 
     public void removeAllCards() {
-        hand.clear();
+        this.hand.clear();
     }
 
     // Get the current hand

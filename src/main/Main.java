@@ -9,17 +9,17 @@ public class Main {
 
     GameActionListener aHandler = new GameActionListener();
     UI ui = new UI();
-    VisibilityManager vm = new VisibilityManager(ui);
+    VisibilityManager vm;
     PlayerDeck deck;
     ShopDeck shopDeck;
     PlayerHand hand;
     PendingHand pendingHand;
     DiscardDeck discardDeck;
-    ArrayList<Card> randomHand;
+    
     ArrayList<Card> shopHand;
     PendingScoreManager pendingScoreManager;
-    TotalScoreManager totalScoreManager = new TotalScoreManager();
-    RoundManager roundManager = new RoundManager();
+    TotalScoreManager totalScoreManager;
+    RoundManager roundManager;
 
     public static void main(String[] args) {
         System.out.println("Hello, World!");
@@ -32,30 +32,9 @@ public class Main {
 
     public Main() {
 
+        vm = new VisibilityManager(ui);
         ui.createUI(aHandler);
         vm.showTitleScreen();
-
-        deck = new PlayerDeck();
-        shopDeck = new ShopDeck();
-        hand = new PlayerHand();
-        pendingHand = new PendingHand();
-        discardDeck = new DiscardDeck();
-        pendingScoreManager = new PendingScoreManager(pendingHand.getHand());
-
-        randomHand = hand.createRandomHand(deck);
-
-        shopHand = shopDeck.createShop();
-
-        roundManager.printRound();
-        
-        ui.updateHandView(randomHand, aHandler);
-        ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
-
-        ui.deckViewPanel.setVisible(false);
-
-        
-
-
     }
 
     public class GameActionListener implements ActionListener {
@@ -69,6 +48,43 @@ public class Main {
             switch(choice){
                 case "start": 
                     vm.showGamePlayArea();
+
+                    // Create deck
+                    deck = new PlayerDeck();
+
+                    // Create new shop deck
+                    shopDeck = new ShopDeck();
+
+                    // Create new player hand
+                    hand = new PlayerHand(deck);
+
+                    // Create new pending hand
+                    pendingHand = new PendingHand();
+
+                    // Create new discard deck
+                    discardDeck = new DiscardDeck();
+
+                    // Create new pending score manager
+                    pendingScoreManager = new PendingScoreManager(pendingHand.getHand());
+
+                    totalScoreManager = new TotalScoreManager();
+
+                    roundManager = new RoundManager();
+
+                    shopHand = shopDeck.createShop();
+
+                    roundManager.printRound();
+
+                    // Update hand, round, and segment counters
+
+                    ui.updateCounters(aHandler, roundManager.getStage(), roundManager.getRound(), roundManager.getSegment());
+                    ui.updateTotalScoreView(totalScoreManager.getTotalScoreString(), totalScoreManager.getTotalMoneyString());
+                    ui.updateTotalScoreView("0", "0");
+                    ui.updateHandView(hand.getHand(), aHandler);
+                    ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
+
+                    ui.deckViewPanel.setVisible(false);
+
                     break;
                 case "handCardClick": 
                     vm.printDeckState();
@@ -107,7 +123,7 @@ public class Main {
                     System.out.println("Score: " + pendingScoreManager.getScoreString());
 
                     
-                    ui.updateHandView(randomHand, aHandler);
+                    ui.updateHandView(hand.getHand(), aHandler);
                     ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
                     
 
@@ -149,7 +165,7 @@ public class Main {
                     System.out.println("Score: " + pendingScoreManager.getScoreString());
 
                     
-                    ui.updateHandView(randomHand, aHandler);
+                    ui.updateHandView(hand.getHand(), aHandler);
                     ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
                    
 
@@ -198,6 +214,7 @@ public class Main {
                         // Update round
                         if (roundManager.isEndRound() && roundManager.isEndStage()) {
                             ui.updatePlayHandButton(aHandler);
+                            break;
                             
                         } else if (roundManager.isEndStage()) {
                             roundManager.nextRound();
@@ -205,7 +222,7 @@ public class Main {
                             roundManager.resetStage();
                             roundManager.printStage();
 
-                            deck.returnCardsFromDiscard(discardDeck.getDeck());
+                            deck.returnCardsFromDiscard(discardDeck.getDiscardDeck());
                             discardDeck.removeAllCardsFromDiscardDeck();
                         } else {
                             roundManager.nextStage();
@@ -217,9 +234,9 @@ public class Main {
                         if (deck.getDeck().size() >= 3 && roundManager.getStage() == 1 && roundManager.getRound() != 1) {
                             cardsToBeDrawn =  hand.getHandSize() - hand.getHand().size();
                         } else if (deck.getDeck().size() >= 3) {
-                            cardsToBeDrawn = 3;
+                            cardsToBeDrawn = hand.getHandSize() - hand.getHand().size();
                         } else if (deck.getDeck().size() == 2) {
-                            cardsToBeDrawn = 2;
+                            cardsToBeDrawn = hand.getHandSize() - hand.getHand().size() - 1;
                         } else if (deck.getDeck().size() == 1) {
                             cardsToBeDrawn = 1;
                         }
@@ -228,7 +245,7 @@ public class Main {
                             hand.drawCard(deck);
                         }
 
-                        ui.updateHandView(randomHand, aHandler);
+                        ui.updateHandView(hand.getHand(), aHandler);
                         ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
 
                         ui.updateTotalScoreView(totalScoreManager.getTotalScoreString(), totalScoreManager.getTotalMoneyString());
@@ -240,20 +257,54 @@ public class Main {
                         System.out.println("Hand is not full");
                     }
 
+                    // Update hand, round, and segment counters
+
+                    ui.updateCounters(aHandler, roundManager.getStage(), roundManager.getRound(), roundManager.getSegment());
+
                     
 
                     break;
 
                 case "endRound":
 
-                    deck.returnCardsFromDiscard(discardDeck.getDeck());
+                    deck.returnCardsFromDiscard(discardDeck.getDiscardDeck());
                     discardDeck.removeAllCardsFromDiscardDeck();
+
+                    System.err.println("DISCARD DECK AFTER END ROUND");
+                    discardDeck.printDeck();
+
+                    deck.returnCardsFromHand(hand.getHand());
+                    hand.removeAllCards();
+
+                    if (roundManager.isEndSegment()) {
+
+                        deck = null;
+
+                        roundManager.resetStage();
+                        roundManager.resetRound();
+                        roundManager.resetSegment();
+
+                        pendingScoreManager.resetAll();
+
+                        pendingHand.clearHand();
+
+                        shopHand = null;
+
+                        
+                        ui.updateNextRoundButton(aHandler);
+
+                        System.gc();
+
+                        vm.showTitleScreen();
+                        break;
+                    }
 
                     ui.updateShopView(shopHand, aHandler);
                 
                     vm.showShopScreen();
 
                     ui.updateEndRoundButton(aHandler);
+                    
                     
                     break;
                 
@@ -264,17 +315,15 @@ public class Main {
                         break;
                     }
 
-                    System.out.println("Before Removal");
-                    System.out.println(hand.getHand());
+                    
 
-                    hand.removeAllCards();
+                    System.err.println("DISCARD DECK AFTER NEXT ROUND");
 
-                    System.out.println("After Removal");
-                    System.out.println(hand.getHand());
+                    discardDeck.removeAllCardsFromDiscardDeck();
+                    
+                    discardDeck.printDeck();
 
-
-
-                    int cardsToBeDrawn = 5;
+                    int cardsToBeDrawn = hand.getHandSize();
 
                     for (int i = 0; i < cardsToBeDrawn; i++) {
                         hand.drawCard(deck);
@@ -284,16 +333,13 @@ public class Main {
                     roundManager.resetStage();
                     roundManager.nextSegment();
 
+                    ui.updateCounters(aHandler, roundManager.getStage(), roundManager.getRound(), roundManager.getSegment());
+
                     vm.showGamePlayArea();
 
                     
-                    shopHand.clear();
-
-                    
-                    shopHand = shopDeck.createShop();
-                    
                     ui.updateNextRoundButton(aHandler);
-                    ui.updateHandView(randomHand, aHandler);
+                    ui.updateHandView(hand.getHand(), aHandler);
                     ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
 
 

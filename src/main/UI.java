@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,6 +39,10 @@ public class UI {
     Font gameTitleFont = new Font("Times New Roman", Font.PLAIN,70);
 
     JPanel topRight;
+    JLabel handCounter;
+    JLabel roundCounter;
+    JLabel segmentCounter;
+    Font counterFont = new Font("Times New Roman", Font.PLAIN,25);
     // Bottom Menu
     JPanel bottomMenuPanel;
 
@@ -108,7 +113,7 @@ public class UI {
 
         // Add Title text to title panel
         titleNameLable = new JLabel();
-        titleNameLable.setText("Rutrick");
+        titleNameLable.setText("SET");
         titleNameLable.setForeground(Color.white);
 
         // Center contents
@@ -210,7 +215,7 @@ public class UI {
         // Text that will display Total Money Value: 
         moneyTotalValueLabel = new JLabel("0");
         moneyTotalValueLabel.setBackground(Color.black);
-        moneyTotalValueLabel.setForeground(Color.yellow);
+        moneyTotalValueLabel.setForeground(Color.lightGray);
         moneyTotalValueLabel.setFont(scoreTotalFont);
 
         topLeft.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 40));
@@ -234,8 +239,8 @@ public class UI {
         // Use GridBagLayout for centering
         topMiddle.setLayout(new GridBagLayout());
 
-        // Text that will display Rutrick
-        gameTitelLabel = new JLabel("Rutrick");
+        // Text that will display SET
+        gameTitelLabel = new JLabel("SET");
         gameTitelLabel.setBackground(Color.black);
         gameTitelLabel.setForeground(Color.white);
         gameTitelLabel.setFont(gameTitleFont);
@@ -249,9 +254,29 @@ public class UI {
         CreateObjectSpace topRightSpace = new CreateObjectSpace(topMenuPanel, .33, 1, .67, 0);
         topRight = new JPanel();
         topRightSpace.applyBounds(topRight);
-        topRight.setBackground(Color.blue);
+        topRight.setBackground(Color.BLACK);
         topRight.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        topRight.setLayout(new BoxLayout(topRight, BoxLayout.Y_AXIS));
 
+        handCounter = new JLabel("Hand: 1");
+        handCounter.setFont(counterFont);
+        handCounter.setBackground(Color.black);
+        handCounter.setForeground(Color.white);
+
+        roundCounter = new JLabel("Round: 1");
+        roundCounter.setFont(counterFont);
+        roundCounter.setBackground(Color.black);
+        roundCounter.setForeground(Color.white);
+
+        segmentCounter = new JLabel("Segment: 1");
+        segmentCounter.setFont(counterFont);
+        segmentCounter.setBackground(Color.black);
+        segmentCounter.setForeground(Color.white);
+
+        
+        topRight.add(handCounter);
+        topRight.add(roundCounter);
+        topRight.add(segmentCounter);
         topMenuPanel.add(topRight);
         
 
@@ -355,7 +380,7 @@ public class UI {
         CreateObjectSpace bottomRightSpace = new CreateObjectSpace(bottomMenuPanel, .33, 1, .67, 0);
         bottomRight = new JPanel();
         bottomRightSpace.applyBounds(bottomRight);
-        bottomRight.setBackground(Color.blue);
+        bottomRight.setBackground(Color.black);
         bottomRight.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         bottomMenuPanel.add(bottomRight);
@@ -393,8 +418,8 @@ public class UI {
         CreateObjectSpace handViewSpace = new CreateObjectSpace(gameplayPanel, 1, .5, 0, .5);
         handViewPanel = new JPanel();
         handViewSpace.applyBounds(handViewPanel);
-        handViewPanel.setBackground(Color.orange);
-        handViewPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE));
+        handViewPanel.setBackground(Color.lightGray);
+        handViewPanel.setBorder(BorderFactory.createLineBorder(Color.lightGray));
         handViewPanel.setVisible(false);
     
         gameplayPanel.add(handViewPanel);
@@ -467,7 +492,7 @@ public class UI {
         // Text that will display Money Score Value: 
         potMoneyValueLabel = new JLabel(money);
         potMoneyValueLabel.setBackground(Color.black);
-        potMoneyValueLabel.setForeground(Color.yellow);
+        potMoneyValueLabel.setForeground(Color.lightGray);
         potMoneyValueLabel.setFont(scoreTotalFont);
 
         
@@ -504,7 +529,7 @@ public class UI {
         // Text that will display Total Score Value: 
         moneyTotalValueLabel = new JLabel(money);
         moneyTotalValueLabel.setBackground(Color.black);
-        moneyTotalValueLabel.setForeground(Color.yellow);
+        moneyTotalValueLabel.setForeground(Color.lightGray);
         moneyTotalValueLabel.setFont(scoreTotalFont);
 
         topLeft.add(moneyTotalLabel);
@@ -607,6 +632,46 @@ public class UI {
         
         bottomMiddle.revalidate();
         bottomMiddle.repaint();
+
+
+    }
+
+    public void updateCounters (Main.GameActionListener aHandler, int hand, int round, int segment) {
+        if (handCounter != null) {
+            topRight.remove(handCounter);
+        } 
+
+        if (roundCounter != null) {
+            topRight.remove(roundCounter);
+        } 
+
+        if (segmentCounter != null) {
+            topRight.remove(segmentCounter);
+        } 
+
+        handCounter = new JLabel("Hand: " + hand);
+        handCounter.setFont(counterFont);
+        handCounter.setBackground(Color.black);
+        handCounter.setForeground(Color.white);
+
+        roundCounter = new JLabel("Round: " + round);
+        roundCounter.setFont(counterFont);
+        roundCounter.setBackground(Color.black);
+        roundCounter.setForeground(Color.white);
+
+        segmentCounter = new JLabel("Segment: " + segment);
+        segmentCounter.setFont(counterFont);
+        segmentCounter.setBackground(Color.black);
+        segmentCounter.setForeground(Color.white);
+
+        
+        topRight.add(handCounter);
+        topRight.add(roundCounter);
+        topRight.add(segmentCounter);
+
+        topRight.repaint();
+        topRight.revalidate();
+
 
 
     }
