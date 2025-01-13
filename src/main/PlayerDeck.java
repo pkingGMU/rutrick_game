@@ -21,25 +21,20 @@ public class PlayerDeck {
         String[] fillTypes = {"Solid", "Striped", "Empty"};
 
         // Create all combinations of color, number, shape, and fill
-        //for (String color : colorTypes) {
-        //    for (String number : numberTypes) {
-        //        for (String shape : shapeTypes) {
-        //           for (String fill : fillTypes) {
-        //                // Each card is by the Card Class
-        //                deck.add(new Card(color, number, shape, fill));
-        //            }
-        //        }
-        //    }
-        //}
+        for (String color : colorTypes) {
+            for (String number : numberTypes) {
+                for (String shape : shapeTypes) {
+                   for (String fill : fillTypes) {
+                        // Each card is by the Card Class
+                        deck.add(new Card(color, number, shape, fill));
+                    }
+                }
+            }
+        }
 
         
         
-        deck.add(new Card("Blue","1","Square","Solid"));
-        deck.add(new Card("Blue","1","Square","Solid"));
-        deck.add(new Card("Blue","1","Square","Solid"));
-        deck.add(new Card("Blue","1","Square","Solid"));
-        deck.add(new Card("Blue","1","Square","Solid"));
-        deck.add(new Card("Blue","1","Square","Solid"));
+        
         
         
         
@@ -48,6 +43,8 @@ public class PlayerDeck {
         
 
         shuffleDeck();
+        deleteDownToFirstHand();
+
     }
 
     public ArrayList<Card> getDeck() {
@@ -56,6 +53,15 @@ public class PlayerDeck {
 
     public void shuffleDeck() {
         Collections.shuffle(deck);
+    }
+
+    public void deleteDownToFirstHand() {
+
+        System.out.println("Deck Size: " + deck.size());
+        while (deck.size() > 6) {
+            this.deck.remove(0);
+        }
+        System.out.println("Deck Size After reduction: " + deck.size());
     }
 
     public Card drawCard() {
