@@ -42,7 +42,7 @@ public class UI {
     JLabel handCounter;
     JLabel roundCounter;
     JLabel segmentCounter;
-    Font counterFont = new Font("Times New Roman", Font.PLAIN,25);
+    Font counterFont = new Font("Times New Roman", Font.PLAIN,20);
     // Bottom Menu
     JPanel bottomMenuPanel;
 
@@ -76,7 +76,7 @@ public class UI {
     // Start button
     JButton startButton;
     // Normal Font
-    Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
+    Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
 
     
     public void createUI(Main.GameActionListener aHandler) {
