@@ -276,6 +276,11 @@ public class Main {
                     deck.returnCardsFromHand(hand.getHand());
                     hand.removeAllCards();
 
+                    pendingScoreManager.resetAll();
+                    pendingHand.clearHand();
+                    ui.updatePendingView(pendingHand.getHand(), aHandler, pendingScoreManager.getScoreString(), pendingScoreManager.getMoneyString());
+
+
                     if (roundManager.isEndSegment()) {
 
                         deck = null;
@@ -284,9 +289,9 @@ public class Main {
                         roundManager.resetRound();
                         roundManager.resetSegment();
 
-                        pendingScoreManager.resetAll();
+                        
 
-                        pendingHand.clearHand();
+                        
 
                         shopHand = null;
 
